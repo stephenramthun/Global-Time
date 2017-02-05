@@ -18,7 +18,6 @@
                 <outlet property="window" destination="QvC-M9-y7g" id="Ht3-2z-MP7"/>
             </connections>
         </customObject>
-        <customObject id="iOg-Ey-145" customClass="SARInputFieldDataSource"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
