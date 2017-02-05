@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410C4E9E1E46F93A005A03F0 /* SARClockList.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C4E9D1E46F93A005A03F0 /* SARClockList.m */; };
 		41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37171E451ADB00BC7B52 /* AppDelegate.m */; };
 		41DD371B1E451ADB00BC7B52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD371A1E451ADB00BC7B52 /* main.m */; };
 		41DD371D1E451ADB00BC7B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41DD371C1E451ADB00BC7B52 /* Assets.xcassets */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		410C4E9C1E46F93A005A03F0 /* SARClockList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARClockList.h; sourceTree = "<group>"; };
+		410C4E9D1E46F93A005A03F0 /* SARClockList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARClockList.m; sourceTree = "<group>"; };
 		41DD37131E451ADB00BC7B52 /* Global Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Global Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DD37161E451ADB00BC7B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41DD37171E451ADB00BC7B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				41DD377C1E46583B00BC7B52 /* SARInputFieldDataSource.m */,
 				41DD377E1E4660F300BC7B52 /* SARTimeZoneData.h */,
 				41DD377F1E4660F300BC7B52 /* SARTimeZoneData.m */,
+				410C4E9C1E46F93A005A03F0 /* SARClockList.h */,
+				410C4E9D1E46F93A005A03F0 /* SARClockList.m */,
 			);
 			name = Window;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				41DD371B1E451ADB00BC7B52 /* main.m in Sources */,
 				41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */,
 				41DD37751E458EBE00BC7B52 /* SARStatusBarClock.m in Sources */,
+				410C4E9E1E46F93A005A03F0 /* SARClockList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +345,7 @@
 				41DD37261E451ADB00BC7B52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

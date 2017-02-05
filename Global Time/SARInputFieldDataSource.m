@@ -10,7 +10,7 @@
 
 @interface SARInputFieldDataSource()
 
-@property (nonatomic, readwrite) NSMutableArray *timeZones;
+@property (nonatomic, readwrite) NSMutableArray *cities;
 @property (nonatomic, readwrite) NSMutableArray *filteredResults;
 
 @end
@@ -31,24 +31,24 @@
  */
 - (void)populateTimeZonesArray {
     NSArray *timeZoneNames = [NSTimeZone knownTimeZoneNames];
-    self.timeZones         = [NSMutableArray arrayWithCapacity:timeZoneNames.count];
+    self.cities         = [NSMutableArray arrayWithCapacity:timeZoneNames.count];
     
     for (NSString *timeZoneName in timeZoneNames) {
         SARTimeZoneData *timeZone = [[SARTimeZoneData alloc] initWithName:timeZoneName];
-        [self.timeZones addObject:timeZone];
+        [self.cities addObject:timeZone];
     }
 }
 
 #pragma mark - Data Source Methods
 
 - (id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index {
-    SARTimeZoneData *timeZone = [self.timeZones objectAtIndex:index];
+    SARTimeZoneData *timeZone = [self.cities objectAtIndex:index];
     NSString *value = [NSString stringWithFormat:@"%@ / %@", timeZone.region, timeZone.city];
     return value;
 }
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox {
-    return self.timeZones.count;
+    return self.cities.count;
 }
 
 /**
@@ -59,7 +59,7 @@
  * @param string    string currently in text field of combo box
  */
 - (NSString *)comboBox:(NSComboBox *)comboBox completedString:(NSString *)string {
-    for (SARTimeZoneData *timeZone in self.timeZones) {
+    for (SARTimeZoneData *timeZone in self.cities) {
         NSString *commonPrefix = [timeZone.city commonPrefixWithString:string options:NSCaseInsensitiveSearch];
         if (commonPrefix.length >= string.length) {
             return timeZone.city;

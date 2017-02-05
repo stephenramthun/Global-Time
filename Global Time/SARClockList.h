@@ -1,5 +1,5 @@
 //
-//  SARInputField.h
+//  SARClockList.h
 //  Global Time
 //
 //  Created by Stephen Ramthun on 04/02/2017.
@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SARInputFieldDataSource.h"
 
-@interface SARInputField : NSComboBox <NSComboBoxDelegate>
+@interface SARClockList : NSStackView
 
 @end

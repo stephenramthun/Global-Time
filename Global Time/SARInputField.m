@@ -6,17 +6,25 @@
 //  Copyright © 2017 Stephen Ramthun. All rights reserved.
 //
 
-const int kNumberOfVisibleItems = 15;
+const int kNumberOfVisibleItems = 0;
 
 #import "SARInputField.h"
 
+@interface SARInputField()
+
+@property (readwrite, strong) SARInputFieldDataSource *inputFieldDataSource;
+           
+@end
+
 @implementation SARInputField
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    if (self = [super initWithCoder:coder]) {
-        self.usesDataSource = YES;
-        self.completes      = YES;
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    if (self = [super initWithFrame:frameRect]) {
+        self.usesDataSource       = YES;
+        self.completes            = YES;
         self.numberOfVisibleItems = kNumberOfVisibleItems;
+        self.inputFieldDataSource = [[SARInputFieldDataSource alloc] init];
+        self.dataSource           = self.inputFieldDataSource;
     }
     
     return self;

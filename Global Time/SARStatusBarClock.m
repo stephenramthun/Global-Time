@@ -44,6 +44,7 @@
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer){
         NSDate *currentDate    = [NSDate date];
+        currentDate = [currentDate dateByAddingTimeInterval:(3600 * 9)];
         NSString *dateString   = [dateFormatter stringFromDate:currentDate];
         NSString *statusString = [NSString stringWithFormat:@"%@: %@", self.name, dateString];
         [self.item setTitle:statusString];
