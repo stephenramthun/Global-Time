@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  SARStatusBarClock.h
 //  Global Time
 //
 //  Created by Stephen Ramthun on 03/02/2017.
@@ -7,11 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SARStatusBarClock.h"
+#import <Foundation/Foundation.h>
 #import "SARRequestHandler.h"
+#import "SARTimeZoneData.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-
+@interface SARStatusBarClock : NSObject
 
 @end
-
