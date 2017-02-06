@@ -20,6 +20,6 @@
 @property (nonatomic, strong) NSString *country;
 
 - (instancetype)initWithDelegate:(id)delegate;
-- (void)sendRequest;
+- (void)sendRequestOfType:(NSString *)type withInput:(NSString *)input;
 
 @end

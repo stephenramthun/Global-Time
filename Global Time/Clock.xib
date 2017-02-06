@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SARClockViewController">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="zeT-iw-xfH"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="iuT-PQ-3GM" customClass="SARCityTextField">
+                    <rect key="frame" x="8" y="49" width="254" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="9lS-LX-NAU"/>
+                        <constraint firstAttribute="width" constant="250" id="zD4-CS-vUA"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Enter city" placeholderString="" id="EI2-UM-hYQ">
+                        <font key="font" metaFont="system" size="26"/>
+                        <color key="textColor" red="0.69616513324873097" green="0.69616513324873097" blue="0.69616513324873097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Cq-U2-yNO">
+                    <rect key="frame" x="251" y="0.0" width="219" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="aTm-eJ-flT"/>
+                        <constraint firstAttribute="width" constant="215" id="cXT-9y-cJ5"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" usesSingleLineMode="YES" id="q6P-kh-w7o">
+                        <font key="font" metaFont="system" size="80"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="iuT-PQ-3GM" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="ESy-cn-2gl"/>
+                <constraint firstAttribute="trailing" secondItem="9Cq-U2-yNO" secondAttribute="trailing" constant="12" id="KQl-fU-xnK"/>
+                <constraint firstItem="iuT-PQ-3GM" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="Ke8-VV-UT5"/>
+                <constraint firstItem="9Cq-U2-yNO" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="ZPI-um-we1"/>
+                <constraint firstAttribute="bottom" secondItem="9Cq-U2-yNO" secondAttribute="bottom" id="ajX-cj-x0P"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

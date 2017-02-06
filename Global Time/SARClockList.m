@@ -12,7 +12,6 @@
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
     if (self = [super initWithFrame:frameRect]) {
-        NSLog(@"init clock list");
         
     }
     

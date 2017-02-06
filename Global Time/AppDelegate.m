@@ -18,7 +18,8 @@
 
 @property (readwrite, weak) IBOutlet NSWindow *window;
 @property (readwrite)       SARStatusBarClock *clock;
-@property (readwrite)       SARClockList *clockList;
+@property (readwrite)       SARClockList      *clockList;
+@property (readwrite)       NSMutableArray    *clocks;
 
 @end
 
@@ -30,11 +31,13 @@
     self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
     
     [self.window.contentView addSubview:self.clockList];
-    
-    /*
-    SARInputField *inputField = [[SARInputField alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, 24.0)];
-    [self.window.contentView addSubview:inputField];
-     */
+    [self addClock];
+}
+
+- (void)addClock {
+    SARClockViewController *clockViewController = [[SARClockViewController alloc] initWithNibName:@"Clock" bundle:[NSBundle mainBundle]];
+    [self.clocks  addObject:clockViewController];
+    [self.clockList addView:clockViewController.view inGravity:NSStackViewGravityBottom];
 }
 
 @end
