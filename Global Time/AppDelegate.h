@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SARClockList.h"
-#import "SARClockViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 

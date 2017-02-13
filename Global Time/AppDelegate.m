@@ -6,30 +6,30 @@
 //  Copyright © 2017 Stephen Ramthun. All rights reserved.
 //
 
-// KEYS - DELETE BEFORE PUBLISHING CODE
-//
-// Google Places:     AIzaSyC2hcNriRbvlCxGKN6_CM2ij0jj1sAd5hM
-// Google Time Zones: AIzaSyAYbym6feYlr7vakttlcqyFeVgKBy585XU
-// Google Geocoding:  AIzaSyAgA-Yal7w7z-7AbszDk-4FOqsPVDZ96H4
-
 #import "AppDelegate.h"
+#import "SARClockList.h"
+#import "SARClockViewController.h"
+#import "SARClockController.h"
 
 @interface AppDelegate ()
 
-@property (readwrite, weak) IBOutlet NSWindow *window;
-@property (readwrite)       SARClockList      *clockList;
-@property (readwrite)       NSMutableArray    *clocks;
+@property (nonatomic, weak) IBOutlet NSWindow *window;
+@property (nonatomic) NSMutableArray *clocks;
+@property (nonatomic) SARClockList *clockList;
+@property (nonatomic) SARClockController *clockController;
 
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+  
+  _clockController = [[SARClockController alloc] init];
+  
+    //self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
     
-    self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
-    
-    [self.window.contentView addSubview:self.clockList];
-    [self addClock];
+    //[self.window.contentView addSubview:self.clockList];
+    //[self addClock];
 }
 
 - (void)addClock {
