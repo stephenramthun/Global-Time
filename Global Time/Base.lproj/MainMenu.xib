@@ -692,6 +692,7 @@
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="LSr-I6-qfK"/>
             </connections>
+            <point key="canvasLocation" x="69" y="162"/>
         </window>
     </objects>
 </document>

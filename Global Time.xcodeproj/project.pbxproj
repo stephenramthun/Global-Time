@@ -11,12 +11,14 @@
 		410C4EA11E470323005A03F0 /* Clock.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410C4EA01E470323005A03F0 /* Clock.xib */; };
 		410C4EA51E4707F0005A03F0 /* SARClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C4EA31E4707F0005A03F0 /* SARClockViewController.m */; };
 		410C4EA91E47CE6D005A03F0 /* SARCityTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C4EA81E47CE6D005A03F0 /* SARCityTextField.m */; };
+		410C50B51E51922D005A03F0 /* global-time.plist in Resources */ = {isa = PBXBuildFile; fileRef = 410C50B41E51922D005A03F0 /* global-time.plist */; };
+		410C50B81E519464005A03F0 /* SARStatusBarMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C50B71E519464005A03F0 /* SARStatusBarMenu.m */; };
 		41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37171E451ADB00BC7B52 /* AppDelegate.m */; };
 		41DD371B1E451ADB00BC7B52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD371A1E451ADB00BC7B52 /* main.m */; };
 		41DD371D1E451ADB00BC7B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41DD371C1E451ADB00BC7B52 /* Assets.xcassets */; };
 		41DD37201E451ADB00BC7B52 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41DD371E1E451ADB00BC7B52 /* MainMenu.xib */; };
 		41DD376D1E4570BA00BC7B52 /* SARRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD376C1E4570BA00BC7B52 /* SARRequestHandler.m */; };
-		41DD37751E458EBE00BC7B52 /* SARStatusBarClock.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37741E458EBE00BC7B52 /* SARStatusBarClock.m */; };
+		41DD37751E458EBE00BC7B52 /* SARClockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37741E458EBE00BC7B52 /* SARClockController.m */; };
 		41DD377A1E46581D00BC7B52 /* SARInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37791E46581D00BC7B52 /* SARInputField.m */; };
 		41DD377D1E46583B00BC7B52 /* SARInputFieldDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD377C1E46583B00BC7B52 /* SARInputFieldDataSource.m */; };
 		41DD37801E4660F300BC7B52 /* SARTimeZoneData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD377F1E4660F300BC7B52 /* SARTimeZoneData.m */; };
@@ -31,6 +33,9 @@
 		410C4EA31E4707F0005A03F0 /* SARClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARClockViewController.m; sourceTree = "<group>"; };
 		410C4EA71E47CE6D005A03F0 /* SARCityTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARCityTextField.h; sourceTree = "<group>"; };
 		410C4EA81E47CE6D005A03F0 /* SARCityTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARCityTextField.m; sourceTree = "<group>"; };
+		410C50B41E51922D005A03F0 /* global-time.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "global-time.plist"; path = "../../../../keys/google/global-time.plist"; sourceTree = "<group>"; };
+		410C50B61E519464005A03F0 /* SARStatusBarMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARStatusBarMenu.h; sourceTree = "<group>"; };
+		410C50B71E519464005A03F0 /* SARStatusBarMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARStatusBarMenu.m; sourceTree = "<group>"; };
 		41DD37131E451ADB00BC7B52 /* Global Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Global Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DD37161E451ADB00BC7B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41DD37171E451ADB00BC7B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -40,8 +45,8 @@
 		41DD37211E451ADB00BC7B52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41DD376B1E4570BA00BC7B52 /* SARRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARRequestHandler.h; sourceTree = "<group>"; };
 		41DD376C1E4570BA00BC7B52 /* SARRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARRequestHandler.m; sourceTree = "<group>"; };
-		41DD37731E458EBE00BC7B52 /* SARStatusBarClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARStatusBarClock.h; sourceTree = "<group>"; };
-		41DD37741E458EBE00BC7B52 /* SARStatusBarClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARStatusBarClock.m; sourceTree = "<group>"; };
+		41DD37731E458EBE00BC7B52 /* SARClockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARClockController.h; sourceTree = "<group>"; };
+		41DD37741E458EBE00BC7B52 /* SARClockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARClockController.m; sourceTree = "<group>"; };
 		41DD37781E46581D00BC7B52 /* SARInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARInputField.h; sourceTree = "<group>"; };
 		41DD37791E46581D00BC7B52 /* SARInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARInputField.m; sourceTree = "<group>"; };
 		41DD377B1E46583B00BC7B52 /* SARInputFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARInputFieldDataSource.h; sourceTree = "<group>"; };
@@ -99,6 +104,7 @@
 			children = (
 				41DD371A1E451ADB00BC7B52 /* main.m */,
 				410C4E9F1E4700FA005A03F0 /* Constants.h */,
+				410C50B41E51922D005A03F0 /* global-time.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -126,8 +132,10 @@
 		41DD37771E4657E400BC7B52 /* Status Bar */ = {
 			isa = PBXGroup;
 			children = (
-				41DD37731E458EBE00BC7B52 /* SARStatusBarClock.h */,
-				41DD37741E458EBE00BC7B52 /* SARStatusBarClock.m */,
+				41DD37731E458EBE00BC7B52 /* SARClockController.h */,
+				41DD37741E458EBE00BC7B52 /* SARClockController.m */,
+				410C50B61E519464005A03F0 /* SARStatusBarMenu.h */,
+				410C50B71E519464005A03F0 /* SARStatusBarMenu.m */,
 			);
 			name = "Status Bar";
 			sourceTree = "<group>";
@@ -191,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410C50B51E51922D005A03F0 /* global-time.plist in Resources */,
 				41DD371D1E451ADB00BC7B52 /* Assets.xcassets in Resources */,
 				410C4EA11E470323005A03F0 /* Clock.xib in Resources */,
 				41DD37201E451ADB00BC7B52 /* MainMenu.xib in Resources */,
@@ -205,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41DD376D1E4570BA00BC7B52 /* SARRequestHandler.m in Sources */,
+				410C50B81E519464005A03F0 /* SARStatusBarMenu.m in Sources */,
 				41DD377D1E46583B00BC7B52 /* SARInputFieldDataSource.m in Sources */,
 				410C4EA51E4707F0005A03F0 /* SARClockViewController.m in Sources */,
 				41DD37801E4660F300BC7B52 /* SARTimeZoneData.m in Sources */,
@@ -212,7 +222,7 @@
 				41DD371B1E451ADB00BC7B52 /* main.m in Sources */,
 				41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */,
 				410C4EA91E47CE6D005A03F0 /* SARCityTextField.m in Sources */,
-				41DD37751E458EBE00BC7B52 /* SARStatusBarClock.m in Sources */,
+				41DD37751E458EBE00BC7B52 /* SARClockController.m in Sources */,
 				410C4E9E1E46F93A005A03F0 /* SARClockList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

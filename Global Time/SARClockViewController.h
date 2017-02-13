@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SARCityTextField.h"
 
-@interface SARClockViewController : NSViewController <NSTextFieldDelegate, NSTextDelegate>
+@interface SARClockViewController : NSViewController <SARCityTextFieldDelegate>
 
 @end

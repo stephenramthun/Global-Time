@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SARRequestHandlerDelegate <NSObject>
+@protocol SARRequestHandlerDelegate
 
 - (void)receivedResponse:(id)response;
 

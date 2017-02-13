@@ -7,11 +7,14 @@
 //
 
 #import "SARClockViewController.h"
+#import "SARClockController.h"
+#import "SARRequestHandler.h"
 
 @interface SARClockViewController ()
 
-@property (nonatomic, weak) NSTextField *clock;
-@property (nonatomic, weak) NSTextField *place;
+@property (nonatomic, weak) NSTextField       *clock;
+@property (nonatomic, weak) SARCityTextField  *place;
+@property (nonatomic, weak) SARClockController *statusBarClock;
 
 @end
 
@@ -22,8 +25,22 @@
     
     self.clock = [self.view viewWithTag:1];
     self.place = [self.view viewWithTag:2];
+    self.place.sctDelegate = self;
+}
+
+- (void)userDidEnterText:(NSString *)string {
+    [self sendRequestWithString:string andType:@"place"];
+}
+
+- (void)sendRequestWithString:(NSString *)string andType:(NSString *)type {
     
-    //self.place.delegate = self;
+    //SARRequestHandler *requestHandler = [[SARRequestHandler alloc] initWithDelegate:self];
+    //[requestHandler sendRequestOfType:type withInput:string];
+}
+
+- (void)receivedResponse:(id)response {
+    NSLog(@"Received response: %@", response);
+    
 }
 
 @end

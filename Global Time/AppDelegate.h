@@ -7,9 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SARStatusBarClock.h"
-#import "SARRequestHandler.h"
-#import "SARInputField.h"
 #import "SARClockList.h"
 #import "SARClockViewController.h"
 

@@ -25,11 +25,20 @@
 }
 
 - (BOOL)becomeFirstResponder {
+    
+    BOOL result = [super becomeFirstResponder];
+    
+    if (result) {
+        NSTextView *textField = (NSTextView *)[self currentEditor];
+        [textField setInsertionPointColor:[NSColor whiteColor]];
+    }
+    
     if (self.assigned == NO) {
         self.stringValue = @"";
         self.assigned = YES;
     }
-    return YES;
+    
+    return result;
 }
  
 - (void)textDidEndEditing:(NSNotification *)notification {

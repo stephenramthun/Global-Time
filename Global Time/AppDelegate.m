@@ -17,7 +17,6 @@
 @interface AppDelegate ()
 
 @property (readwrite, weak) IBOutlet NSWindow *window;
-@property (readwrite)       SARStatusBarClock *clock;
 @property (readwrite)       SARClockList      *clockList;
 @property (readwrite)       NSMutableArray    *clocks;
 
@@ -27,7 +26,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
-    self.clock     = [[SARStatusBarClock alloc] init];
     self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
     
     [self.window.contentView addSubview:self.clockList];

@@ -18,6 +18,6 @@
 @interface SARCityTextField : NSTextField
 
 @property (nonatomic, copy) NSString *inputString;
-@property (nonatomic, readwrite) id <SARCityTextFieldDelegate> sctDelegate;
+@property (nonatomic, readwrite) id sctDelegate;
 
 @end

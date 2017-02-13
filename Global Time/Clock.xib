@@ -18,14 +18,14 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="iuT-PQ-3GM" customClass="SARCityTextField">
-                    <rect key="frame" x="8" y="49" width="254" height="31"/>
+                    <rect key="frame" x="8" y="49" width="239" height="31"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="31" id="9lS-LX-NAU"/>
-                        <constraint firstAttribute="width" constant="250" id="zD4-CS-vUA"/>
+                        <constraint firstAttribute="width" constant="235" id="zD4-CS-vUA"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Enter city" placeholderString="" id="EI2-UM-hYQ">
                         <font key="font" metaFont="system" size="26"/>
-                        <color key="textColor" red="0.69616513324873097" green="0.69616513324873097" blue="0.69616513324873097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.81002141497461932" green="0.66446526286029639" blue="0.20651479739403558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                     </textFieldCell>
                 </textField>
@@ -37,7 +37,7 @@
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" usesSingleLineMode="YES" id="q6P-kh-w7o">
                         <font key="font" metaFont="system" size="80"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="1" green="0.90919312553497789" blue="0.49203326853975593" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
                 </textField>
