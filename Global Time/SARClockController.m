@@ -31,17 +31,59 @@ const NSInteger kHours   = 9;
 
 - (instancetype)init {
   if (self = [super init]) {
-    /*
     [self setupClockItem];
     
     _timeData = [[SARTimeData alloc] init];
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self selector:@selector(receivedOffset:) name:@"SARTimeData" object:_timeData];
-    [_timeData makeAPICallWithInput:@"osl"];
-    */
+    [_timeData addObserver:self forKeyPath:@"timeZone" options:NSKeyValueObservingOptionNew context:nil];
+    [_timeData makeAPICallWithInput:@"oslo"];
   }
   return self;
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+  NSDateFormatter *dateFormatter = [self dateFormatter];
+  NSTimeZone *localTimeZone  = [NSTimeZone localTimeZone];
+  NSTimeZone *remoteTimeZone = self.timeData.timeZone;
+  
+  self.offset       = [remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT];
+  self.currentDate  = [[NSDate date] dateByAddingTimeInterval:ABS(self.offset)];
+  
+  // Schedule timer for repeat every second, and update title
+  // of self.clockItem to correctly represent the current time.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(updateTime:)
+                                                userInfo:dateFormatter
+                                                 repeats:YES];
+  });
+  
+  [self.timeData removeObserver:self forKeyPath:@"timeZone"];
+}
+
+- (void)updateTime:(NSTimer *)timer {
+  NSDateFormatter *dateFormatter = timer.userInfo;
+  self.currentDate  = [self.currentDate dateByAddingTimeInterval:1.0];
+  self.dateString   = [dateFormatter stringFromDate:self.currentDate];
+  self.statusString = [NSString stringWithFormat:@"%@: %@", self.timeData.locationName, self.dateString];
+  [self.clockItem setTitle:self.statusString];
+}
+
+- (NSDateFormatter *)dateFormatter {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateStyle = NSDateFormatterNoStyle;
+  dateFormatter.timeStyle = NSDateFormatterShortStyle;
+  dateFormatter.locale    = [NSLocale currentLocale];
+  return dateFormatter;
+}
+
+- (void)setupClockItem {
+  NSStatusBar *systemBar = [NSStatusBar systemStatusBar];
+  self.clockItem = [systemBar statusItemWithLength:NSVariableStatusItemLength];
+  [self.clockItem setHighlightMode:YES];
+  [self.clockItem setMenu:[[SARStatusBarMenu alloc] init]];
+}
+
 /*
 - (void)receivedOffset:(NSNotification *)notification {
   _offset = _timeData.offsetInSeconds;

@@ -10,14 +10,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SARTimeData : NSObject <NSURLSessionDataDelegate>
+@interface SARTimeData : NSObject
 
-typedef enum : NSInteger {
-  SARAPICallTypePlaces,
-  SARAPICallTypeGeocoding,
-  SARAPICallTypeTimeZones
-} SARAPICallType;
-
+// Any classes interested in getting the values of these properties should use KVO,
+// as the values are set after making asynchronous API web service calls. They are
+// never set immediately during initialization of SARTimeData.
 @property (nonatomic, readonly) NSTimeZone *timeZone;
 @property (nonatomic, readonly) NSString *locationName;
 
