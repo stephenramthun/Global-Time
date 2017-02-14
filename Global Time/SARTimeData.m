@@ -8,10 +8,6 @@
 
 #import "SARTimeData.h"
 
-static void * const kPlacesKVOContext    = (void *)&kPlacesKVOContext;
-static void * const kGeocodingKVOContext = (void *)&kGeocodingKVOContext;
-static void * const kTimeZonesKVOContext = (void *)&kTimeZonesKVOContext;
-
 @interface SARTimeData ()
 
 @property (nonatomic, readwrite) NSDate *date;
@@ -53,10 +49,6 @@ static void * const kTimeZonesKVOContext = (void *)&kTimeZonesKVOContext;
                                   responseType:@"json"];
   
   [self sendRequestWithURL:url responseType:@"json"];
-  [self addObserver:self
-         forKeyPath:@"self.apiResponse"
-            options:NSKeyValueObservingOptionNew
-            context:[self contextForAPICallType:type]];
 }
 
 #pragma mark - Private Interface
@@ -71,19 +63,6 @@ static void * const kTimeZonesKVOContext = (void *)&kTimeZonesKVOContext;
       
     case SARAPICallTypeTimeZones:
       return self.timezones;
-  }
-}
-
-- (void *)contextForAPICallType:(SARAPICallType)type {
-  switch (type) {
-    case SARAPICallTypePlaces:
-      return kPlacesKVOContext;
-      
-    case SARAPICallTypeGeocoding:
-      return kGeocodingKVOContext;
-      
-    case SARAPICallTypeTimeZones:
-      return kTimeZonesKVOContext;
   }
 }
 
@@ -120,26 +99,24 @@ static void * const kTimeZonesKVOContext = (void *)&kTimeZonesKVOContext;
   id object;
   
   if ([type isEqualToString:@"json"]) {
-    
-    // Requested response is JSON
     object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (error) {
       NSLog(@"JSON was malformed, could not parse data.");
       return NO;
     }
-    
-    // Success, assign result to property
     self.apiResponse = object;
     return YES;
     
   } else if ([type isEqualToString:@"xml"]) {
     // Requested response is XML
-    // Implement XML-parsing
+    // I don't currently need XML-parsing, but it may come in handy in the future.
   }
   // Error
   NSLog(@"parseData: Invalid argument passed for \"type\": %@", type);
   return NO;
 }
+
+#pragma mark - Chaining API Calls
 
 - (NSString *)city {
   if (!self.apiResponse) {
@@ -152,21 +129,6 @@ static void * const kTimeZonesKVOContext = (void *)&kTimeZonesKVOContext;
   
   NSLog(@"%@", [components firstObject]);
   return [components firstObject];
-}
-
-#pragma mark - KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  if (context == kPlacesKVOContext) {
-    NSLog(@"PLACES");
-  } else if (context == kGeocodingKVOContext) {
-    NSLog(@"GEOCODING");
-  } else if (context == kTimeZonesKVOContext) {
-    NSLog(@"TIMEZONES");
-  }
-  
-  NSLog(@"New apiResponse: %@", change);
-  [self removeObserver:self forKeyPath:keyPath context:context];
 }
 
 @end
