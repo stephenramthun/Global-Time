@@ -15,6 +15,8 @@
 		410C50B81E519464005A03F0 /* SARStatusBarMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C50B71E519464005A03F0 /* SARStatusBarMenu.m */; };
 		410C50BB1E5236D3005A03F0 /* SARTimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C50BA1E5236D3005A03F0 /* SARTimeData.m */; };
 		4166F81D1E52E63100B51FC1 /* SARPlacesAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4166F81C1E52E63100B51FC1 /* SARPlacesAPIHandler.m */; };
+		4166F8201E52F6C300B51FC1 /* SARGeocodingAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4166F81F1E52F6C300B51FC1 /* SARGeocodingAPIHandler.m */; };
+		4166F8231E52F8B400B51FC1 /* SARTimeZoneAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4166F8221E52F8B400B51FC1 /* SARTimeZoneAPIHandler.m */; };
 		41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD37171E451ADB00BC7B52 /* AppDelegate.m */; };
 		41DD371B1E451ADB00BC7B52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD371A1E451ADB00BC7B52 /* main.m */; };
 		41DD371D1E451ADB00BC7B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41DD371C1E451ADB00BC7B52 /* Assets.xcassets */; };
@@ -42,6 +44,10 @@
 		410C50BA1E5236D3005A03F0 /* SARTimeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARTimeData.m; sourceTree = "<group>"; };
 		4166F81B1E52E63100B51FC1 /* SARPlacesAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARPlacesAPIHandler.h; sourceTree = "<group>"; };
 		4166F81C1E52E63100B51FC1 /* SARPlacesAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARPlacesAPIHandler.m; sourceTree = "<group>"; };
+		4166F81E1E52F6C300B51FC1 /* SARGeocodingAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARGeocodingAPIHandler.h; sourceTree = "<group>"; };
+		4166F81F1E52F6C300B51FC1 /* SARGeocodingAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARGeocodingAPIHandler.m; sourceTree = "<group>"; };
+		4166F8211E52F8B400B51FC1 /* SARTimeZoneAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARTimeZoneAPIHandler.h; sourceTree = "<group>"; };
+		4166F8221E52F8B400B51FC1 /* SARTimeZoneAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARTimeZoneAPIHandler.m; sourceTree = "<group>"; };
 		41DD37131E451ADB00BC7B52 /* Global Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Global Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DD37161E451ADB00BC7B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41DD37171E451ADB00BC7B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -72,15 +78,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4166F81A1E52E3FD00B51FC1 /* Request Handlers */ = {
+		4166F81A1E52E3FD00B51FC1 /* API Handlers */ = {
 			isa = PBXGroup;
 			children = (
 				41DD376B1E4570BA00BC7B52 /* SARAPIHandler.h */,
 				41DD376C1E4570BA00BC7B52 /* SARAPIHandler.m */,
 				4166F81B1E52E63100B51FC1 /* SARPlacesAPIHandler.h */,
 				4166F81C1E52E63100B51FC1 /* SARPlacesAPIHandler.m */,
+				4166F81E1E52F6C300B51FC1 /* SARGeocodingAPIHandler.h */,
+				4166F81F1E52F6C300B51FC1 /* SARGeocodingAPIHandler.m */,
+				4166F8211E52F8B400B51FC1 /* SARTimeZoneAPIHandler.h */,
+				4166F8221E52F8B400B51FC1 /* SARTimeZoneAPIHandler.m */,
 			);
-			name = "Request Handlers";
+			name = "API Handlers";
 			sourceTree = "<group>";
 		};
 		41DD370A1E451ADB00BC7B52 = {
@@ -153,7 +163,7 @@
 				410C50B71E519464005A03F0 /* SARStatusBarMenu.m */,
 				410C50B91E5236D3005A03F0 /* SARTimeData.h */,
 				410C50BA1E5236D3005A03F0 /* SARTimeData.m */,
-				4166F81A1E52E3FD00B51FC1 /* Request Handlers */,
+				4166F81A1E52E3FD00B51FC1 /* API Handlers */,
 			);
 			name = "Status Bar";
 			sourceTree = "<group>";
@@ -235,6 +245,8 @@
 				4166F81D1E52E63100B51FC1 /* SARPlacesAPIHandler.m in Sources */,
 				410C50B81E519464005A03F0 /* SARStatusBarMenu.m in Sources */,
 				41DD377D1E46583B00BC7B52 /* SARInputFieldDataSource.m in Sources */,
+				4166F8231E52F8B400B51FC1 /* SARTimeZoneAPIHandler.m in Sources */,
+				4166F8201E52F6C300B51FC1 /* SARGeocodingAPIHandler.m in Sources */,
 				410C50BB1E5236D3005A03F0 /* SARTimeData.m in Sources */,
 				410C4EA51E4707F0005A03F0 /* SARClockViewController.m in Sources */,
 				41DD37801E4660F300BC7B52 /* SARTimeZoneData.m in Sources */,

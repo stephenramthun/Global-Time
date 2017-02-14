@@ -10,6 +10,21 @@
 
 @implementation SARPlacesAPIHandler
 
+// https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&types=(cities)&language=pt_BR&key=YOUR_API_KEY
+
+
+/**
+ * Builds a URL based on an api-key, a base string and arguments.
+ *
+ * @return  NSURL containing a call to the API
+ */
+- (NSURL *)buildURL {
+  NSString *base      = @"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&";  // %@ at the end is for inserting user input
+  NSString *arguments = @"types=(cities)";
+  NSString *urlString = [NSString stringWithFormat:@"%@%@&key=%@", base, arguments, self.key];
+  return [NSURL URLWithString:urlString];
+}
+
 /**
  * Takes as an argument a JSON response from Google's Places API, parses it, and returns 
  * the name of the city that most closely matches a given argument supplied by the user. 

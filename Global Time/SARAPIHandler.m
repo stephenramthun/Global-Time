@@ -21,4 +21,16 @@
   return self;
 }
 
+/**
+ * Builds a URL based on given api-key, base string and arguments.
+ *
+ * @param key         key used for authentication
+ * @param base        base/first part of the URL
+ * @param arguments   arguments supplied to the API web service
+ */
+- (NSURL *)buildURLWithKey:(NSString *)key base:(NSString *)base arguments:(NSString *)arguments{
+  NSString *path = [NSString stringWithFormat:@"%@%@%@", base, arguments, key];
+  return [NSURL URLWithString:path];
+}
+
 @end

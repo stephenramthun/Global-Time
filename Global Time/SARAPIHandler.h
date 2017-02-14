@@ -11,5 +11,6 @@
 @interface SARAPIHandler : NSObject
 
 @property (nonatomic, readonly) NSString *urlString;
+@property (nonatomic) NSString *key;
 
 @end
