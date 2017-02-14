@@ -1,5 +1,5 @@
 //
-//  SARRequestHandler.h
+//  SARAPIHandler.h
 //  Global Time
 //
 //  Created by Stephen Ramthun on 03/02/2017.
@@ -8,12 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SARRequestHandlerDelegate
+@interface SARAPIHandler : NSObject
 
-- (void)receivedResponse:(id)response;
-
-@end
-
-@interface SARRequestHandler : NSObject
+@property (nonatomic, readonly) NSString *urlString;
 
 @end

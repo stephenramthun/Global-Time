@@ -7,7 +7,6 @@
 //
 
 #import "SARClockController.h"
-#import "SARRequestHandler.h"
 #import "SARStatusBarMenu.h"
 #import "SARTimeData.h"
 
