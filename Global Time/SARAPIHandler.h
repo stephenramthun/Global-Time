@@ -12,4 +12,7 @@
 
 @property (nonatomic) NSString *key;
 
+- (instancetype)initWithKey:(NSString *)key;
+- (NSString *)buildURLString;
+
 @end

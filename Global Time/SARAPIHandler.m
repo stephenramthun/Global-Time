@@ -37,4 +37,15 @@
   return [NSURL URLWithString:path];
 }
 
+/**
+ * Builds a URL string based on an api-key, a base string and arguments.
+ * This method must be overridden by subclasses.
+ *
+ * @return  NSString representing a URL
+ */
+- (NSString *)buildURLString {
+  [NSException raise:@"IllegalMethodCall" format:@"Method \"buildURL\" should be overridden."];
+  return nil;
+}
+
 @end

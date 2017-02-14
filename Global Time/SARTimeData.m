@@ -7,6 +7,9 @@
 //
 
 #import "SARTimeData.h"
+#import "SARPlacesAPIHandler.h"
+#import "SARGeocodingAPIHandler.h"
+#import "SARTimeZoneAPIHandler.h"
 
 @interface SARTimeData ()
 
@@ -18,6 +21,8 @@
 
 @property (nonatomic) NSDictionary *apiKeys;
 @property (nonatomic) NSDictionary *apiPaths;
+
+@property (nonatomic) NSDictionary *apiHandlers;
 
 @end
 
@@ -32,6 +37,10 @@
     NSDictionary *apiAttributes = [NSDictionary dictionaryWithContentsOfFile:@"/Users/stephenramthun/keys/google/global-time.plist"];
     _apiKeys  = [apiAttributes valueForKey:@"keys"];
     _apiPaths = [apiAttributes valueForKey:@"paths"];
+    
+    _apiHandlers = @{_places:    [[SARPlacesAPIHandler alloc]    initWithKey:[_apiKeys valueForKey:_places]],
+                     _geocoding: [[SARGeocodingAPIHandler alloc] initWithKey:[_apiKeys valueForKey:_geocoding]],
+                     _timezones: [[SARTimeZoneAPIHandler alloc]  initWithKey:[_apiKeys valueForKey:_timezones]]};
   }
   return self;
 }
@@ -39,20 +48,50 @@
 #pragma mark - Public Interface
 
 - (void)makeAPICallWithInput:(NSString *)input {
-  [self makeAPICallWithType:SARAPICallTypePlaces input:input];
+  //[self makeAPICallWithType:SARAPICallTypePlaces input:input];
+  SARAPIHandler *places = [self.apiHandlers valueForKey:self.places];
+  [self makeAPICallWithHandler:places input:input];
 }
 
 #pragma mark - Private Interface
+
+- (void)makeAPICallWithHandler:(SARAPIHandler *)handler input:(NSString *)input {
+  NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  
+  void (^completionHandler)(NSData *, NSURLResponse *, NSError *) = ^(NSData *data, NSURLResponse *response, NSError *error){
+    NSLog(@"Received data: %@", data);
+  };
+  
+  NSString        *urlString = [NSString stringWithFormat:[handler buildURLString], input];
+  NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
+  NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
+  [task resume];
+}
+
+/*
+ - (void)sendRequestWithURL:(NSURL *)url responseType:(NSString *)responseType apiType:(SARAPICallType)apiType {
+ NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+ 
+ NSURLSession          *session = [NSURLSession sessionWithConfiguration:configuration];
+ NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+ [self parseData:data to:responseType apiType:apiType];
+ }];
+ 
+ [dataTask resume];
+ }
+ */
 
 // Makes an API-call of a given type with supplied user input.
 // @param type    which api to use, e.g. "places"
 // @param input   user-input to use with call
 - (void)makeAPICallWithType:(SARAPICallType)type input:(NSString *)input {
+  /*
   NSString *typeString = [self stringWithAPICallType:type];
   NSURL    *url        = [self buildURLWithAPI:typeString
                                          input:input
                                   responseType:@"json"];
-  [self sendRequestWithURL:url responseType:@"json" apiType:type];
+   */
+  //[self sendRequestWithURL:url responseType:@"json" apiType:type];
 }
 
 - (NSString *)stringWithAPICallType:(SARAPICallType)type {

@@ -11,6 +11,21 @@
 @implementation SARGeocodingAPIHandler
 
 /**
+ * Builds a URL string based on an api-key, a base string and arguments.
+ *
+ * @return  NSString representing a URL
+ */
+- (NSString *)buildURSLtring {
+  if (!self.key) {
+    return nil;
+  }
+  
+  NSString *base      = @"https://maps.googleapis.com/maps/api/geocode/json?";  // %@ at the end is for inserting user input
+  NSString *arguments = @"address=%@";
+  return [NSString stringWithFormat:@"%@%@&key=%@", base, arguments, self.key];
+}
+
+/**
  * Takes as an argument a JSON response from Google's Geocoding API, parses it, and returns
  * the coordinates of the result.
  *
