@@ -10,8 +10,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SARTimeData : NSObject <NSURLSessionDownloadDelegate>
+@interface SARTimeData : NSObject <NSURLSessionDataDelegate>
+
+typedef enum : NSInteger {
+  SARAPICallTypePlaces,
+  SARAPICallTypeGeocoding,
+  SARAPICallTypeTimeZones
+} SARAPICallType;
 
 @property (nonatomic, readonly) NSDate *date;
+@property (nonatomic, readonly, copy) NSString *places;
+@property (nonatomic, readonly, copy) NSString *geocoding;
+@property (nonatomic, readonly, copy) NSString *timezones;
+
+- (void)makeAPICallWithType:(SARAPICallType)type input:(NSString *)input;
+- (NSString *)city;
 
 @end
