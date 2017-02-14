@@ -13,12 +13,18 @@
 // https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&types=(cities)&language=pt_BR&key=YOUR_API_KEY
 
 
+
+
 /**
  * Builds a URL based on an api-key, a base string and arguments.
  *
  * @return  NSURL containing a call to the API
  */
 - (NSURL *)buildURL {
+  if (!self.key) {
+    return nil;
+  }
+  
   NSString *base      = @"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&";  // %@ at the end is for inserting user input
   NSString *arguments = @"types=(cities)";
   NSString *urlString = [NSString stringWithFormat:@"%@%@&key=%@", base, arguments, self.key];
