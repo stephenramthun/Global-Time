@@ -16,6 +16,4 @@
 
 @interface SARClockController : NSObject
 
-@property (nonatomic, readonly) SARTimeData *timeData;
-
 @end

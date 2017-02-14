@@ -18,10 +18,8 @@ typedef enum : NSInteger {
   SARAPICallTypeTimeZones
 } SARAPICallType;
 
-@property (nonatomic, readonly) NSDate *date;
-@property (nonatomic, readonly, copy) NSString *places;
-@property (nonatomic, readonly, copy) NSString *geocoding;
-@property (nonatomic, readonly, copy) NSString *timezones;
+@property (nonatomic, readonly) NSInteger offsetInSeconds;
+@property (nonatomic) NSString *fullLocationName;
 
 - (void)makeAPICallWithInput:(NSString *)input;
 

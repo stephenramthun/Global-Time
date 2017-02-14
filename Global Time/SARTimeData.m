@@ -10,11 +10,11 @@
 
 @interface SARTimeData ()
 
-@property (nonatomic, readwrite) NSDate *date;
+@property (nonatomic, readwrite) NSInteger offsetInSeconds;
 
-@property (nonatomic, readwrite) NSString *places;
-@property (nonatomic, readwrite) NSString *geocoding;
-@property (nonatomic, readwrite) NSString *timezones;
+@property (nonatomic) NSString *places;
+@property (nonatomic) NSString *geocoding;
+@property (nonatomic) NSString *timezones;
 
 @property (nonatomic) NSDictionary *apiKeys;
 @property (nonatomic) NSDictionary *apiPaths;
@@ -32,8 +32,6 @@
     NSDictionary *apiAttributes = [NSDictionary dictionaryWithContentsOfFile:@"/Users/stephenramthun/keys/google/global-time.plist"];
     _apiKeys  = [apiAttributes valueForKey:@"keys"];
     _apiPaths = [apiAttributes valueForKey:@"paths"];
-    
-    [self makeAPICallWithInput:@"osl"];
   }
   return self;
 }
@@ -142,9 +140,8 @@
   NSString *cityAndCountry = [[[dictionary valueForKey:@"predictions"] valueForKey:@"description"] firstObject];
   NSArray *components      = [cityAndCountry componentsSeparatedByString:@", "];
   
-  NSLog(@"Places,    CITY:     %@", components);
-  
   [self makeAPICallWithType:SARAPICallTypeGeocoding input:[components firstObject]];
+  self.fullLocationName = cityAndCountry;
 }
 
 - (void)geocodeAPICall:(id)response {
@@ -159,13 +156,16 @@
   NSTimeInterval interval  = [now timeIntervalSince1970];
   NSString *combinedString = [NSString stringWithFormat:@"%@&timestamp=%ld", locationString, (long)interval];
   
-  NSLog(@"Geocoding, combined: %@", combinedString);
-  
   [self makeAPICallWithType:SARAPICallTypeTimeZones input:combinedString];
 }
 
 - (void)timeZonesAPICall:(id)response {
-  NSLog(@"response: %@", response);
+  NSInteger localOffset  = [[NSTimeZone localTimeZone] secondsFromGMT];
+  NSInteger DSTOffset    = [[response valueForKey:@"dstOffset"] longValue];
+  NSInteger remoteOffset = [[response valueForKey:@"rawOffset"] longValue];
+  
+  self.offsetInSeconds   = localOffset - (remoteOffset + DSTOffset);
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"SARTimeData" object:self];
 }
 
 @end

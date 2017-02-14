@@ -18,7 +18,13 @@ const NSInteger kHours   = 9;
 
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) NSStatusItem *clockItem;
-@property (nonatomic, readwrite) SARTimeData *timeData;
+@property (nonatomic) SARTimeData *timeData;
+@property (nonatomic) NSInteger offset;
+
+// Properties used for updating clock display
+@property (nonatomic) NSDate *currentDate;
+@property (nonatomic) NSString *dateString;
+@property (nonatomic) NSString *statusString;
 
 @end
 
@@ -27,10 +33,18 @@ const NSInteger kHours   = 9;
 - (instancetype)init {
   if (self = [super init]) {
     [self setupClockItem];
-    [self setupStatusBar];
+    
     _timeData = [[SARTimeData alloc] init];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(receivedOffset:) name:@"SARTimeData" object:_timeData];
+    [_timeData makeAPICallWithInput:@"osl"];
   }
   return self;
+}
+
+- (void)receivedOffset:(NSNotification *)notification {
+  _offset = _timeData.offsetInSeconds;
+  [self setupStatusBar];
 }
 
 // Initial setup of status bar
@@ -39,15 +53,25 @@ const NSInteger kHours   = 9;
   dateFormatter.dateStyle = NSDateFormatterNoStyle;
   dateFormatter.timeStyle = NSDateFormatterShortStyle;
   dateFormatter.locale    = [NSLocale currentLocale];
+  self.currentDate  = [[NSDate date] dateByAddingTimeInterval:ABS(self.offset)];
 
   // Schedule timer for repeat every second, and update title
   // of self.clockItem to correctly represent the current time.
-  self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer){
-      NSDate *currentDate    = [[NSDate date] dateByAddingTimeInterval:(kSeconds * kHours)];
-      NSString *dateString   = [dateFormatter stringFromDate:currentDate];
-      NSString *statusString = [NSString stringWithFormat:@"%@: %@", @"TEST", dateString];
-      [self.clockItem setTitle:statusString];
-  }];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(updateTime:)
+                                                userInfo:dateFormatter
+                                                 repeats:YES];
+  });
+}
+
+- (void)updateTime:(NSTimer *)timer {
+  NSDateFormatter *dateFormatter = timer.userInfo;
+  self.currentDate  = [self.currentDate dateByAddingTimeInterval:1.0];
+  self.dateString   = [dateFormatter stringFromDate:self.currentDate];
+  self.statusString = [NSString stringWithFormat:@"%@: %@", self.timeData.fullLocationName, self.dateString];
+  [self.clockItem setTitle:self.statusString];
 }
 
 // One time setup of clock item
