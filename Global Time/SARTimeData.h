@@ -23,7 +23,6 @@ typedef enum : NSInteger {
 @property (nonatomic, readonly, copy) NSString *geocoding;
 @property (nonatomic, readonly, copy) NSString *timezones;
 
-- (void)makeAPICallWithType:(SARAPICallType)type input:(NSString *)input;
-- (NSString *)city;
+- (void)makeAPICallWithInput:(NSString *)input;
 
 @end

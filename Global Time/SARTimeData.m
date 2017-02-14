@@ -11,12 +11,13 @@
 @interface SARTimeData ()
 
 @property (nonatomic, readwrite) NSDate *date;
+
 @property (nonatomic, readwrite) NSString *places;
 @property (nonatomic, readwrite) NSString *geocoding;
 @property (nonatomic, readwrite) NSString *timezones;
+
 @property (nonatomic) NSDictionary *apiKeys;
 @property (nonatomic) NSDictionary *apiPaths;
-@property (nonatomic) NSDictionary *apiResponse;
 
 @end
 
@@ -24,20 +25,26 @@
 
 - (instancetype)init {
   if (self = [super init]) {
-    _places    = @"places";
+    _places    = @"place";
     _geocoding = @"geocode";
     _timezones = @"timezones";
-    _apiKeys   = [NSDictionary dictionaryWithContentsOfFile:@"/Users/stephenramthun/keys/google/global-time.plist"];
-    _apiPaths  = @{_places:    @"place/autocomplete/%@?input=%@&type=(cities)&",
-                   _geocoding: @"geocode/%@?address=%@&",
-                   _timezones: @""};
     
-    [self makeAPICallWithType:SARAPICallTypePlaces input:@"osl"];
+    NSDictionary *apiAttributes = [NSDictionary dictionaryWithContentsOfFile:@"/Users/stephenramthun/keys/google/global-time.plist"];
+    _apiKeys  = [apiAttributes valueForKey:@"keys"];
+    _apiPaths = [apiAttributes valueForKey:@"paths"];
+    
+    [self makeAPICallWithInput:@"osl"];
   }
   return self;
 }
 
 #pragma mark - Public Interface
+
+- (void)makeAPICallWithInput:(NSString *)input {
+  [self makeAPICallWithType:SARAPICallTypePlaces input:input];
+}
+
+#pragma mark - Private Interface
 
 // Makes an API-call of a given type with supplied user input.
 // @param type    which api to use, e.g. "places"
@@ -47,11 +54,8 @@
   NSURL    *url        = [self buildURLWithAPI:typeString
                                          input:input
                                   responseType:@"json"];
-  
-  [self sendRequestWithURL:url responseType:@"json"];
+  [self sendRequestWithURL:url responseType:@"json" apiType:type];
 }
-
-#pragma mark - Private Interface
 
 - (NSString *)stringWithAPICallType:(SARAPICallType)type {
   switch (type) {
@@ -66,12 +70,12 @@
   }
 }
 
-- (void)sendRequestWithURL:(NSURL *)url responseType:(NSString *)responseType {
+- (void)sendRequestWithURL:(NSURL *)url responseType:(NSString *)responseType apiType:(SARAPICallType)apiType {
   NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
   
   NSURLSession          *session = [NSURLSession sessionWithConfiguration:configuration];
   NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    [self parseData:data to:responseType];
+    [self parseData:data to:responseType apiType:apiType];
   }];
   
   [dataTask resume];
@@ -94,7 +98,7 @@
 // @param data  data to parse
 // @param type  type of object to parse data into, e.g. "json"
 // @return      YES if data was successfully parsed, NO if otherwise
-- (BOOL)parseData:(NSData *)data to:(NSString *)type {
+- (BOOL)parseData:(NSData *)data to:(NSString *)type apiType:(SARAPICallType)apiType {
   NSError *error;
   id object;
   
@@ -104,7 +108,9 @@
       NSLog(@"JSON was malformed, could not parse data.");
       return NO;
     }
-    self.apiResponse = object;
+    // JSON-parsing was a success. Use result in building a series of api-calls.
+    SEL selector = [self selectorForAPICallType:apiType];
+    [self performSelector:selector withObject:object];
     return YES;
     
   } else if ([type isEqualToString:@"xml"]) {
@@ -118,17 +124,48 @@
 
 #pragma mark - Chaining API Calls
 
-- (NSString *)city {
-  if (!self.apiResponse) {
-    NSLog(@"city: No valid response");
-    return @"Invalid input";
+- (SEL)selectorForAPICallType:(SARAPICallType)type {
+  switch (type) {
+    case SARAPICallTypePlaces:
+      return @selector(placesAPICall:);
+      
+    case SARAPICallTypeGeocoding:
+      return @selector(geocodeAPICall:);
+      
+    case SARAPICallTypeTimeZones:
+      return @selector(timeZonesAPICall:);
   }
-  
-  NSString *cityAndCountry = [[[self.apiResponse valueForKey:@"predictions"] valueForKey:@"description"] firstObject];
+}
+
+- (void)placesAPICall:(id)response {
+  NSDictionary *dictionary = response;
+  NSString *cityAndCountry = [[[dictionary valueForKey:@"predictions"] valueForKey:@"description"] firstObject];
   NSArray *components      = [cityAndCountry componentsSeparatedByString:@", "];
   
-  NSLog(@"%@", [components firstObject]);
-  return [components firstObject];
+  NSLog(@"Places,    CITY:     %@", components);
+  
+  [self makeAPICallWithType:SARAPICallTypeGeocoding input:[components firstObject]];
+}
+
+- (void)geocodeAPICall:(id)response {
+  NSDictionary *dictionary = response;
+  NSDictionary *location   = [[[dictionary valueForKey:@"results"] valueForKey:@"geometry"] valueForKey:@"location"];
+
+  NSString *locationString = [NSString stringWithFormat:@"%@,%@",
+                              [[location valueForKey:@"lat"] firstObject],
+                              [[location valueForKey:@"lng"] firstObject]];
+  
+  NSDate *now              = [NSDate date];
+  NSTimeInterval interval  = [now timeIntervalSince1970];
+  NSString *combinedString = [NSString stringWithFormat:@"%@&timestamp=%ld", locationString, (long)interval];
+  
+  NSLog(@"Geocoding, combined: %@", combinedString);
+  
+  [self makeAPICallWithType:SARAPICallTypeTimeZones input:combinedString];
+}
+
+- (void)timeZonesAPICall:(id)response {
+  NSLog(@"response: %@", response);
 }
 
 @end
