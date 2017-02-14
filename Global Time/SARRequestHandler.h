@@ -16,10 +16,4 @@
 
 @interface SARRequestHandler : NSObject
 
-@property (nonatomic, strong) NSString *city;
-@property (nonatomic, strong) NSString *country;
-
-- (instancetype)initWithDelegate:(id)delegate;
-- (void)sendRequestOfType:(NSString *)type withInput:(NSString *)input;
-
 @end
