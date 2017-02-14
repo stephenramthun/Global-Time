@@ -44,8 +44,37 @@
  * @return  NSString representing a URL
  */
 - (NSString *)buildURLString {
-  [NSException raise:@"IllegalMethodCall" format:@"Method \"buildURL\" should be overridden."];
+  [NSException raise:@"IllegalMethodCall" format:@"Method \"buildURLString\" should be overridden."];
   return nil;
+}
+
+/**
+ * This method must be overridden by subclasses.
+ *
+ * @return  NSString representing a URL
+ */
+- (NSString *)parseJSONData:(NSData *)data {
+  [NSException raise:@"IllegalMethodCall" format:@"Method \"parseResponse\" should be overridden."];
+  return nil;
+}
+
+/**
+ * Takes an argument representing some JSON data and returns it
+ * as an NSDictionary object.
+ *
+ * @param data  JSON data to convert to a dictionary
+ * @return      NSDictionary with JSON data
+ */
+- (NSDictionary *)dictionaryFromJSONData:(NSData *)data {
+  NSError *error;
+  id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+  
+  if (error) {
+    NSLog(@"JSON was malformed, could not parse data.");
+    return nil;
+  }
+  
+  return object;
 }
 
 @end

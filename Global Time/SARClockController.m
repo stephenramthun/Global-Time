@@ -31,16 +31,18 @@ const NSInteger kHours   = 9;
 
 - (instancetype)init {
   if (self = [super init]) {
+    /*
     [self setupClockItem];
     
     _timeData = [[SARTimeData alloc] init];
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(receivedOffset:) name:@"SARTimeData" object:_timeData];
     [_timeData makeAPICallWithInput:@"osl"];
+    */
   }
   return self;
 }
-
+/*
 - (void)receivedOffset:(NSNotification *)notification {
   _offset = _timeData.offsetInSeconds;
   [self setupStatusBar];
@@ -79,6 +81,6 @@ const NSInteger kHours   = 9;
   self.clockItem = [systemBar statusItemWithLength:NSVariableStatusItemLength];
   [self.clockItem setHighlightMode:YES];
   [self.clockItem setMenu:[[SARStatusBarMenu alloc] init]];
-}
+}*/
 
 @end

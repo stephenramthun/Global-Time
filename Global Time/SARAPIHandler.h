@@ -14,5 +14,7 @@
 
 - (instancetype)initWithKey:(NSString *)key;
 - (NSString *)buildURLString;
+- (NSString *)parseJSONData:(NSData *)data;
+- (NSDictionary *)dictionaryFromJSONData:(NSData *)data;
 
 @end

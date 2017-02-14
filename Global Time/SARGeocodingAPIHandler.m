@@ -15,7 +15,7 @@
  *
  * @return  NSString representing a URL
  */
-- (NSString *)buildURSLtring {
+- (NSString *)buildURLString {
   if (!self.key) {
     return nil;
   }
@@ -29,16 +29,16 @@
  * Takes as an argument a JSON response from Google's Geocoding API, parses it, and returns
  * the coordinates of the result.
  *
- * @param response  JSON data obtained from an API request to Google's Geocoding API.
+ * @param data  JSON data obtained from an API request to Google's Geocoding API.
  */
-- (NSString *)parseResponse:(id)response {
+- (NSString *)parseJSONData:(NSData *)data {
   NSString *first  = @"results";  // First dictionary in JSON
   NSString *second = @"geometry"; // Second dictionary in JSON
   NSString *third  = @"location"; // Third dictionary in JSON
   
-  NSDictionary *objects  = response;
+  NSDictionary *objects  = [self dictionaryFromJSONData:data];
   NSDictionary *location = [[[objects valueForKey:first] valueForKey:second] valueForKey:third];
-  NSString *coordinates  = [NSString stringWithFormat:@"%@%@",
+  NSString *coordinates  = [NSString stringWithFormat:@"%@,%@",
                             [[location valueForKey:@"lat"] firstObject],
                             [[location valueForKey:@"lng"] firstObject]];
   return coordinates;

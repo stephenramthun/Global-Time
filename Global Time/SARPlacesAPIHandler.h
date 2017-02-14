@@ -12,6 +12,6 @@
 
 @property (nonatomic) NSString *cityAndCountry;
 
-- (NSString *)parseResponse:(id)response;
+- (NSString *)parseJSONData:(NSData *)data;
 
 @end

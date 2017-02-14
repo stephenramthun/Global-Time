@@ -17,27 +17,28 @@
  *
  * @return  NSString representing a URL
  */
-- (NSString *)buildURSLtring {
+- (NSString *)buildURLString {
   if (!self.key) {
     return nil;
   }
   
   NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-  
-  NSString *base      = @"https://maps.googleapis.com/maps/api/timezone/json?";  // %@ at the end is for inserting user input
-  NSString *arguments = @"location=%@";
-  return [NSString stringWithFormat:@"%@%@&timestamp=%ld&key=%@", base, arguments, (long)timeStamp, self.key];
+  NSString *base           = @"https://maps.googleapis.com/maps/api/timezone/json?";  // %@ at the end is for inserting user input
+  NSString *arguments      = @"location=%@";
+  NSString *urlString      = [NSString stringWithFormat:@"%@%@&timestamp=%ld&key=%@", base, arguments, (long)timeStamp, self.key];
+  return urlString;
 }
 
 /**
  * Takes as an argument a JSON response from Google's Time Zones API, parses it, 
  * and returns an NSTimeZone containing the time zone from the result.
  *
- * @param response  JSON data obtained from an API request to Google's Time Zones API.
+ * @param data  JSON data obtained from an API request to Google's Time Zones API.
  */
-- (NSTimeZone *)parseResponse:(id)response {
-  NSString *timeZoneName = [response valueForKey:@"timeZoneId"];
-  return [NSTimeZone timeZoneWithName:timeZoneName];
+- (NSString *)parseJSONData:(NSData *)data {
+  NSDictionary *objects  = [self dictionaryFromJSONData:data];
+  NSString *timeZoneName = [objects valueForKey:@"timeZoneId"];
+  return timeZoneName;
 }
 
 @end
