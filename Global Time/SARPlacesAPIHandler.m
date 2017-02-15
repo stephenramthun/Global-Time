@@ -19,7 +19,6 @@
   if (!self.key) {
     return nil;
   }
-  
   NSString *base      = @"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&";  // %@ at the end is for inserting user input
   NSString *arguments = @"types=(cities)";
   return [NSString stringWithFormat:@"%@%@&key=%@", base, arguments, self.key];

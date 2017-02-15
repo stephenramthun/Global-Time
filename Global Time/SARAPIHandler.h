@@ -16,5 +16,6 @@
 - (NSString *)buildURLString;
 - (NSString *)parseJSONData:(NSData *)data;
 - (NSDictionary *)dictionaryFromJSONData:(NSData *)data;
+- (void)makeAPICallWithArguments:(NSString *)arguments object:(id)object selector:(SEL)selector;
 
 @end

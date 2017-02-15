@@ -10,6 +10,7 @@
 #import "SARClockList.h"
 #import "SARClockViewController.h"
 #import "SARClockController.h"
+#import "SARAPIKeyManager.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,8 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+  
+  SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
   
   //_clockController = [[SARClockController alloc] init];
   

@@ -10,6 +10,7 @@
 #import "SARPlacesAPIHandler.h"
 #import "SARGeocodingAPIHandler.h"
 #import "SARTimeZoneAPIHandler.h"
+#import "SARAPIKeyManager.h"
 
 @interface SARTimeData ()
 
@@ -35,11 +36,10 @@
     _geocoding = @"geocode";
     _timezones = @"timezones";
     
-    NSDictionary *apiKeys       = [NSDictionary dictionaryWithContentsOfFile:@"/Users/stephenramthun/keys/google/global-time.plist"];
-    
-    _apiHandlers = @{_places:    [[SARPlacesAPIHandler alloc]    initWithKey:[apiKeys valueForKey:_places]],
-                     _geocoding: [[SARGeocodingAPIHandler alloc] initWithKey:[apiKeys valueForKey:_geocoding]],
-                     _timezones: [[SARTimeZoneAPIHandler alloc]  initWithKey:[apiKeys valueForKey:_timezones]]};
+    SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
+    _apiHandlers = @{_places:    [[SARPlacesAPIHandler alloc]    initWithKey:[keyManager keyForAPIType:SARAPITypePlace]],
+                     _geocoding: [[SARGeocodingAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypeGeocoding]],
+                     _timezones: [[SARTimeZoneAPIHandler alloc]  initWithKey:[keyManager keyForAPIType:SARAPITypeTimeZones]]};
   }
   return self;
 }
@@ -52,8 +52,10 @@
  * @param input   user input used as arguments in the API call.
  */
 - (void)makeAPICallWithInput:(NSString *)input {
+  /*
   SARAPIHandler *places = [self.apiHandlers valueForKey:self.places];
   [self makeAPICallWithHandler:places input:[self purgeString:input]];
+   */
 }
 
 #pragma mark - Private Interface

@@ -16,9 +16,18 @@ const int kNumberOfVisibleItems = 0;
 
 @implementation SARInputField
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+  if (self = [super initWithCoder:coder]) {
+    if ([self respondsToSelector:@selector(setInsertionPointColor:)]){
+      NSLog(@"Responding");
+      [self performSelector:@selector(setInsertionPointColor:) withObject:[NSColor whiteColor]];
+    }
+  }
+  return self;
+}
+
 - (instancetype)initWithFrame:(NSRect)frameRect {
   if (self = [super initWithFrame:frameRect]) {
-    
   }
     
   return self;

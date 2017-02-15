@@ -10,6 +10,8 @@
 
 @interface SARAPIHandler()
 
+@property (nonatomic) NSDictionary *response;
+
 @end
 
 @implementation SARAPIHandler
@@ -24,6 +26,29 @@
     self.key = key;
   }
   return self;
+}
+
+/**
+ * Makes a call to an API with supplied arguments.
+ *
+ * @param arguments   user input used as arguments in the API call.
+ * @param object      object that should receive API response.
+ * @param selector    method implemented by receiving object that handles response.
+ */
+- (void)makeAPICallWithArguments:(NSString *)arguments object:(id)object selector:(SEL)selector {
+  NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  
+  void (^completionHandler)(NSData *, NSURLResponse *, NSError *) = ^(NSData *data, NSURLResponse *response, NSError *error){
+    if ([object respondsToSelector:selector]) {
+      NSString *parsedString = [self parseJSONData:data];
+      [object performSelector:selector withObject:parsedString];
+    }
+  };
+  
+  NSString        *urlString = [self purgeString:[NSString stringWithFormat:[self buildURLString], arguments]];
+  NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
+  NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
+  [task resume];
 }
 
 /**
@@ -63,7 +88,18 @@
     return nil;
   }
   
+  self.response = object;
   return object;
 }
+
+/**
+ * Takes a string argument and return a string without spaces.
+ *
+ * @param string  string to purge of spaces.
+ */
+- (NSString *)purgeString:(NSString *)string {
+  return [string stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+}
+
 
 @end

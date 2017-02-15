@@ -9,15 +9,15 @@
 #import "SARClockViewController.h"
 #import "SARPlacesAPIHandler.h"
 #import "SARClockController.h"
+#import "SARAPIKeyManager.h"
 #import "SARInputField.h"
 #import "SARTimeData.h"
 
 @interface SARClockViewController ()
 
 @property (nonatomic) SARClockController *statusBarClock;
+@property (nonatomic) SARPlacesAPIHandler *placesAPIHandler;
 @property (nonatomic, weak) IBOutlet SARInputField *inputField;
-
-- (IBAction)userDidEnterText:(id)sender;
 
 @end
 
@@ -26,29 +26,36 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.statusBarClock = [[SARClockController alloc] init];
-  [self.statusBarClock addObserver:self forKeyPath:@"locationName" options:NSKeyValueObservingOptionNew context:nil];
+  SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
+  self.placesAPIHandler = [[SARPlacesAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypePlace]];
+  self.statusBarClock   = [[SARClockController alloc] init];
 }
 
-- (IBAction)userDidEnterText:(id)sender {
-  SARInputField *inputField = sender;
-  [self.statusBarClock makeAPICallWithInput:inputField.stringValue];
+/**
+ * Method to be called when SARPlacesAPIHandler receives a response from the web service.
+ *
+ * @param response  response received from web service
+ */
+- (void)didReceiveResponse:(NSString *)response {
+  NSLog(@"%@", self.inputField.cell);
+  NSLog(@"Received response: %@", response);
+  [self.inputField setStringValue:response];
+  [self.view.window makeFirstResponder:nil];
+  
+  // SEND MESSAGE TO STATUS BAR CLOCK
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  [self.inputField setStringValue:[change valueForKey:@"new"]];
-}
+#pragma mark - Control Text Delegate
 
-
-
-// Get notified when user inputs new text in _inputField.
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
   SARInputField *inputField = notification.object;
-  [self.statusBarClock makeAPICallWithInput:inputField.stringValue];
+  [self.placesAPIHandler makeAPICallWithArguments:inputField.stringValue object:self selector:@selector(didReceiveResponse:)];
 }
 
-- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
-  return YES;
+#pragma mark - Mouse Events
+
+- (void)mouseDown:(NSEvent *)event {
+  [self.view.window makeFirstResponder:nil];
 }
 
 @end

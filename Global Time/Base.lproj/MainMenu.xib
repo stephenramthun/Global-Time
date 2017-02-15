@@ -696,16 +696,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="0do-c7-bRC" customClass="SARInputField">
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="0do-c7-bRC" customClass="SARInputField">
                         <rect key="frame" x="18" y="49" width="221" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Enter city" placeholderString="" id="X4r-jg-lyo">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="" id="X4r-jg-lyo">
                             <font key="font" metaFont="system" size="26"/>
                             <color key="textColor" red="1" green="0.90919312549999998" blue="0.49203326850000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         </textFieldCell>
                         <connections>
-                            <outlet property="delegate" destination="HQn-8Q-DgV" id="ysu-N5-d6w"/>
+                            <outlet property="delegate" destination="HQn-8Q-DgV" id="Dc7-ch-VtU"/>
+                            <outlet property="nextKeyView" destination="EiT-Mj-1SZ" id="9AY-vZ-tg5"/>
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="aGX-lK-RGj">
