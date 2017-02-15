@@ -24,7 +24,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  _clockController = [[SARClockController alloc] init];
+  //_clockController = [[SARClockController alloc] init];
   
     //self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
     

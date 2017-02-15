@@ -12,22 +12,16 @@ const int kNumberOfVisibleItems = 0;
 
 @interface SARInputField()
 
-@property (readwrite, strong) SARInputFieldDataSource *inputFieldDataSource;
-           
 @end
 
 @implementation SARInputField
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
-    if (self = [super initWithFrame:frameRect]) {
-        self.usesDataSource       = YES;
-        self.completes            = YES;
-        self.numberOfVisibleItems = kNumberOfVisibleItems;
-        self.inputFieldDataSource = [[SARInputFieldDataSource alloc] init];
-        self.dataSource           = self.inputFieldDataSource;
-    }
+  if (self = [super initWithFrame:frameRect]) {
     
-    return self;
+  }
+    
+  return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {

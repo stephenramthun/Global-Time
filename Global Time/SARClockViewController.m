@@ -7,12 +7,16 @@
 //
 
 #import "SARClockViewController.h"
+#import "SARPlacesAPIHandler.h"
 #import "SARClockController.h"
+#import "SARInputField.h"
 
 @interface SARClockViewController ()
 
 @property (nonatomic, weak) NSTextField       *clock;
-@property (nonatomic, weak) SARClockController *statusBarClock;
+@property (nonatomic) SARClockController *statusBarClock;
+
+- (IBAction)userDidEnterText:(id)sender;
 
 @end
 
@@ -20,22 +24,13 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  NSLog(@"View loaded");
+  
+  self.statusBarClock = [[SARClockController alloc] init];
 }
 
-- (void)userDidEnterText:(NSString *)text {
-  NSLog(@"Entered text: %@", text);
-}
-
-- (void)sendRequestWithString:(NSString *)string andType:(NSString *)type {
-    
-    //SARRequestHandler *requestHandler = [[SARRequestHandler alloc] initWithDelegate:self];
-    //[requestHandler sendRequestOfType:type withInput:string];
-}
-
-- (void)receivedResponse:(id)response {
-    NSLog(@"Received response: %@", response);
-    
+- (IBAction)userDidEnterText:(id)sender {
+  SARInputField *inputField = sender;
+  [self.statusBarClock makeAPICallWithInput:inputField.stringValue];
 }
 
 @end

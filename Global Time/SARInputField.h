@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SARInputFieldDataSource.h"
 
-@interface SARInputField : NSComboBox <NSComboBoxDelegate>
+@interface SARInputField : NSTextField
 
 @end

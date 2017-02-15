@@ -49,8 +49,8 @@ const NSInteger kHours   = 9;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
   NSDateFormatter *dateFormatter = [self dateFormatter];
-  NSTimeZone *localTimeZone  = [NSTimeZone localTimeZone];
-  NSTimeZone *remoteTimeZone = self.timeData.timeZone;
+  NSTimeZone *remoteTimeZone     = self.timeData.timeZone;
+  NSTimeZone *localTimeZone      = [NSTimeZone localTimeZone];
   
   self.offset       = [remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT];
   self.currentDate  = [[NSDate date] dateByAddingTimeInterval:ABS(self.offset)];

@@ -21,6 +21,8 @@
 
 @interface SARClockController : NSObject
 
+@property (nonatomic, readonly) NSString *locationName;
+
 - (void)makeAPICallWithInput:(NSString *)input;
 
 @end
