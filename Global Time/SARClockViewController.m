@@ -12,7 +12,6 @@
 @interface SARClockViewController ()
 
 @property (nonatomic, weak) NSTextField       *clock;
-@property (nonatomic, weak) SARCityTextField  *place;
 @property (nonatomic, weak) SARClockController *statusBarClock;
 
 @end
@@ -20,15 +19,12 @@
 @implementation SARClockViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.clock = [self.view viewWithTag:1];
-    self.place = [self.view viewWithTag:2];
-    self.place.sctDelegate = self;
+  [super viewDidLoad];
+  NSLog(@"View loaded");
 }
 
-- (void)userDidEnterText:(NSString *)string {
-    [self sendRequestWithString:string andType:@"place"];
+- (void)userDidEnterText:(NSString *)text {
+  NSLog(@"Entered text: %@", text);
 }
 
 - (void)sendRequestWithString:(NSString *)string andType:(NSString *)type {

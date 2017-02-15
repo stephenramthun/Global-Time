@@ -32,10 +32,4 @@
     //[self addClock];
 }
 
-- (void)addClock {
-    SARClockViewController *clockViewController = [[SARClockViewController alloc] initWithNibName:@"Clock" bundle:[NSBundle mainBundle]];
-    [self.clocks  addObject:clockViewController];
-    [self.clockList addView:clockViewController.view inGravity:NSStackViewGravityBottom];
-}
-
 @end
