@@ -106,7 +106,6 @@
 			children = (
 				41DD37161E451ADB00BC7B52 /* AppDelegate.h */,
 				41DD37171E451ADB00BC7B52 /* AppDelegate.m */,
-				4166F81A1E52E3FD00B51FC1 /* API Handlers */,
 				41DD37771E4657E400BC7B52 /* Status Bar */,
 				41DD37761E4657DA00BC7B52 /* Window */,
 				41DD371C1E451ADB00BC7B52 /* Assets.xcassets */,
@@ -151,6 +150,7 @@
 				410C50B71E519464005A03F0 /* SARStatusBarMenu.m */,
 				410C50B91E5236D3005A03F0 /* SARTimeData.h */,
 				410C50BA1E5236D3005A03F0 /* SARTimeData.m */,
+				4166F81A1E52E3FD00B51FC1 /* API Handlers */,
 			);
 			name = "Status Bar";
 			sourceTree = "<group>";

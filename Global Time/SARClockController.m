@@ -10,20 +10,18 @@
 #import "SARStatusBarMenu.h"
 #import "SARTimeData.h"
 
-const NSInteger kSeconds = 3600;
-const NSInteger kHours   = 9;
-
 @interface SARClockController()
 
 @property (nonatomic) NSTimer *timer;
-@property (nonatomic) NSStatusItem *clockItem;
-@property (nonatomic) SARTimeData *timeData;
 @property (nonatomic) NSInteger offset;
+@property (nonatomic) NSStatusItem *clockItem;
+@property (nonatomic, readwrite) SARTimeData *timeData;
 
 // Properties used for updating clock display
 @property (nonatomic) NSDate *currentDate;
 @property (nonatomic) NSString *dateString;
 @property (nonatomic) NSString *statusString;
+@property (nonatomic) NSString *locationName;
 
 @end
 
@@ -32,9 +30,7 @@ const NSInteger kHours   = 9;
 - (instancetype)init {
   if (self = [super init]) {
     [self setupClockItem];
-    
     _timeData = [[SARTimeData alloc] init];
-    [_timeData addObserver:self forKeyPath:@"timeZone" options:NSKeyValueObservingOptionNew context:nil];
   }
   return self;
 }
@@ -42,6 +38,7 @@ const NSInteger kHours   = 9;
 #pragma mark - Public Methods
 
 - (void)makeAPICallWithInput:(NSString *)input {
+  [self.timeData addObserver:self forKeyPath:@"timeZone" options:NSKeyValueObservingOptionNew context:nil];
   [self.timeData makeAPICallWithInput:input];
 }
 
@@ -54,9 +51,12 @@ const NSInteger kHours   = 9;
   
   self.offset       = [remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT];
   self.currentDate  = [[NSDate date] dateByAddingTimeInterval:ABS(self.offset)];
+  self.locationName = self.timeData.locationName;
   
   // Schedule timer for repeat every second, and update title
   // of self.clockItem to correctly represent the current time.
+  
+  /*
   dispatch_async(dispatch_get_main_queue(), ^{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
@@ -64,7 +64,7 @@ const NSInteger kHours   = 9;
                                                 userInfo:dateFormatter
                                                  repeats:YES];
   });
-  
+  */
   [self.timeData removeObserver:self forKeyPath:@"timeZone"];
 }
 
@@ -94,6 +94,9 @@ const NSInteger kHours   = 9;
   return dateFormatter;
 }
 
+/**
+ * Initial setup of system status bar clock display.
+ */
 - (void)setupClockItem {
   NSStatusBar *systemBar = [NSStatusBar systemStatusBar];
   self.clockItem = [systemBar statusItemWithLength:NSVariableStatusItemLength];

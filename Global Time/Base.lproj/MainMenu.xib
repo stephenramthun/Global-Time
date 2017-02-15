@@ -20,6 +20,7 @@
         </customObject>
         <customObject id="HQn-8Q-DgV" customClass="SARClockViewController">
             <connections>
+                <outlet property="inputField" destination="0do-c7-bRC" id="xVv-dY-R6z"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="vFj-UC-fm4"/>
             </connections>
         </customObject>
@@ -690,7 +691,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="100"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="SARClockView">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -704,7 +705,7 @@
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         </textFieldCell>
                         <connections>
-                            <action selector="userDidEnterText:" target="HQn-8Q-DgV" id="0KI-Z4-YY4"/>
+                            <outlet property="delegate" destination="HQn-8Q-DgV" id="ysu-N5-d6w"/>
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="aGX-lK-RGj">

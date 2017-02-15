@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SARClockViewController : NSViewController
+@interface SARClockViewController : NSViewController <NSControlTextEditingDelegate>
 
 @end
