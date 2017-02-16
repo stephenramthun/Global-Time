@@ -11,13 +11,13 @@
 #import "SARClockController.h"
 #import "SARAPIKeyManager.h"
 #import "SARInputField.h"
-#import "SARTimeData.h"
 
 @interface SARClockViewController ()
 
 @property (nonatomic) SARClockController *statusBarClock;
 @property (nonatomic) SARPlacesAPIHandler *placesAPIHandler;
 @property (nonatomic, weak) IBOutlet SARInputField *inputField;
+@property (nonatomic, weak) IBOutlet NSTextField *timeTextField;
 
 @end
 
@@ -29,6 +29,12 @@
   SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
   self.placesAPIHandler = [[SARPlacesAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypePlace]];
   self.statusBarClock   = [[SARClockController alloc] init];
+  
+  [self.statusBarClock addObserver:self forKeyPath:@"dateString" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+  self.timeTextField.stringValue = [change valueForKey:@"new"];
 }
 
 /**
@@ -37,6 +43,9 @@
  * @param response  response received from web service
  */
 - (void)didReceiveResponse:(NSString *)response {
+  if (response.length < 1) {
+    return;
+  }
   [self.inputField setStringValue:response];
   [self.view.window makeFirstResponder:nil];
   [self.statusBarClock sendRequestWithArguments:response];

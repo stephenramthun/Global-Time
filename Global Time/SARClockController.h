@@ -13,16 +13,13 @@
 //  - Google Geocoding           (using result from Places to get coordinates)
 //  - Google Time Zones          (using coordinates to get time zone)
 //
-//  These API calls are provided by the model class SARTimeZoneData, which uses
-//  three instances of SARAPIHandler to facilitate communication with the APIs.
 
 #import <Cocoa/Cocoa.h>
-@class SARTimeData;
 
 @interface SARClockController : NSObject
 
 @property (nonatomic, readonly) NSString *locationName;
-@property (nonatomic, readonly) SARTimeData *timeData;
+@property (nonatomic, readonly) NSString *dateString;
 
 - (void)sendRequestWithArguments:(NSString *)arguments;
 

@@ -12,7 +12,6 @@
 #import "SARStatusBarMenu.h"
 #import "SARAPIKeyManager.h"
 #import "SARAPIHandler.h"
-#import "SARTimeData.h"
 
 @interface SARClockController()
 
@@ -20,6 +19,7 @@
 @property (nonatomic) NSStatusItem *clockItem;
 
 // Properties used for updating clock display
+@property (nonatomic, readwrite) NSString *dateString;
 @property (nonatomic) NSString *statusString;
 @property (nonatomic) NSString *locationName;
 @property (nonatomic) NSInteger offsetInSeconds;
@@ -75,12 +75,11 @@
   
   // Update clock each second.
   self.timer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-    NSDate *date         = [[NSDate date] dateByAddingTimeInterval:1.0 - self.offsetInSeconds];
-    NSString *dateString = [self.dateFormatter stringFromDate:date];
-    self.statusString    = [NSString stringWithFormat:@"%@: %@", self.locationName, dateString];
+    NSDate *date      = [[NSDate date] dateByAddingTimeInterval:1.0 - self.offsetInSeconds];
+    self.dateString   = [self.dateFormatter stringFromDate:date];
+    self.statusString = [NSString stringWithFormat:@"%@: %@", self.locationName, self.dateString];
     [self.clockItem setTitle:self.statusString];
     date       = nil;
-    dateString = nil;
   }];
   
   NSRunLoop *mainRunLoop = [NSRunLoop mainRunLoop];

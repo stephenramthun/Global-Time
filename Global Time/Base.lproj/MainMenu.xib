@@ -21,6 +21,7 @@
         <customObject id="HQn-8Q-DgV" customClass="SARClockViewController">
             <connections>
                 <outlet property="inputField" destination="0do-c7-bRC" id="xVv-dY-R6z"/>
+                <outlet property="timeTextField" destination="aGX-lK-RGj" id="4gZ-vP-W6R"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="vFj-UC-fm4"/>
             </connections>
         </customObject>
@@ -687,8 +688,8 @@
             </items>
             <point key="canvasLocation" x="84" y="395"/>
         </menu>
-        <window title="Global Time" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="100"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
