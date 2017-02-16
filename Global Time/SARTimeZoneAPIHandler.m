@@ -36,7 +36,13 @@
  * @param data  JSON data obtained from an API request to Google's Time Zones API.
  */
 - (NSString *)parseJSONData:(NSData *)data {
+  
+  NSLog(@"\n\nTrying to parse NSData: %@\n\n", data);
+  
   NSDictionary *objects  = [self dictionaryFromJSONData:data];
+  
+  NSLog(@"\n\nResult of parsing data: %@\n\n", objects);
+  
   NSString *timeZoneName = [objects valueForKey:@"timeZoneId"];
   return timeZoneName;
 }

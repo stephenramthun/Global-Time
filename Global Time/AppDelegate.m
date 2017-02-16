@@ -23,11 +23,7 @@
 
 @implementation AppDelegate
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification {
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  
   self.window.titleVisibility = NSWindowTitleHidden;
   self.window.titlebarAppearsTransparent = YES;
 }

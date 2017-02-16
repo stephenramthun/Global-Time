@@ -46,8 +46,12 @@
     }
   };
   
-  NSString        *urlString = [self purgeString:[NSString stringWithFormat:[self buildURLString], arguments]];
+  NSString *escapedString    = [arguments stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  NSString        *urlString = [self purgeString:[NSString stringWithFormat:[self buildURLString], escapedString]];
   NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
+  NSURL *url = [NSURL URLWithString:urlString];
+  NSLog(@"Trying to contact API with URL: %@", url.absoluteString);
+  
   NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
   [task resume];
 }

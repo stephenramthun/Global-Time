@@ -33,11 +33,21 @@
  * @param data  JSON data obtained from an API request to Google's Places API.
  */
 - (NSString *)parseJSONData:(NSData *)data {
+  if (data == nil) {
+    NSLog(@"Error: Data was null.");
+    return nil;
+  }
+  
+  NSLog(@"\n\nTrying to parse NSData: %@\n\n", data);
+  
   NSString *first     = @"predictions"; // First dictionary in JSON
   NSString *second    = @"description"; // Second dictionary in JSON
   NSString *separator = @", ";
   
   NSDictionary *objects = [self dictionaryFromJSONData:data];
+  
+  NSLog(@"\n\nResult of parsing data: %@\n\n", objects);
+  
   self.cityAndCountry   = [[[objects valueForKey:first] valueForKey:second] firstObject];
   NSArray *components   = [self.cityAndCountry componentsSeparatedByString:separator];
   return [components firstObject];
