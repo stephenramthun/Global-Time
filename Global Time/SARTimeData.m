@@ -14,12 +14,7 @@
 
 @interface SARTimeData ()
 
-// Keys for dictionary
-@property (nonatomic) NSString *places;
-@property (nonatomic) NSString *geocoding;
-@property (nonatomic) NSString *timezones;
-
-// Classes responsible for building API-requests and parsing responses from web services.
+// Objects responsible for building API-requests and parsing responses from web services.
 @property (nonatomic) NSDictionary *apiHandlers;
 
 // Data attributes
@@ -32,14 +27,13 @@
 
 - (instancetype)init {
   if (self = [super init]) {
-    _places    = @"place";
-    _geocoding = @"geocode";
-    _timezones = @"timezones";
-    
     SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
-    _apiHandlers = @{_places:    [[SARPlacesAPIHandler alloc]    initWithKey:[keyManager keyForAPIType:SARAPITypePlace]],
-                     _geocoding: [[SARGeocodingAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypeGeocoding]],
-                     _timezones: [[SARTimeZoneAPIHandler alloc]  initWithKey:[keyManager keyForAPIType:SARAPITypeTimeZones]]};
+    
+    NSString *geocoding = [keyManager nameForAPIType:SARAPITypeGeocoding];
+    NSString *timezones = [keyManager nameForAPIType:SARAPITypeTimeZones];
+    
+    _apiHandlers = @{geocoding: [[SARGeocodingAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypeGeocoding]],
+                     timezones: [[SARTimeZoneAPIHandler alloc]  initWithKey:[keyManager keyForAPIType:SARAPITypeTimeZones]]};
   }
   return self;
 }
@@ -47,11 +41,12 @@
 #pragma mark - Public Interface
 
 /**
- * Allows other classes to make calls to the Google Places Autocomplete API.
+ * Makes a call to Google's Geocoding and Time Zones APIs to get the local
+ * time for a time zone based on user input.
  *
  * @param input   user input used as arguments in the API call.
  */
-- (void)makeAPICallWithInput:(NSString *)input {
+- (void)setupClockWithInput:(NSString *)input {
   /*
   SARAPIHandler *places = [self.apiHandlers valueForKey:self.places];
   [self makeAPICallWithHandler:places input:[self purgeString:input]];
@@ -59,25 +54,6 @@
 }
 
 #pragma mark - Private Interface
-
-/**
- * Makes a call to an API, based on supplied APIHandler object.
- *
- * @param handler   SARAPIHandler used for building request string and parsing received data.
- * @param input     user input used as arguments in the API call.
- */
-- (void)makeAPICallWithHandler:(SARAPIHandler *)handler input:(NSString *)input {
-  NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-  
-  void (^completionHandler)(NSData *, NSURLResponse *, NSError *) = ^(NSData *data, NSURLResponse *response, NSError *error){
-    [self delegateData:data withHandler:handler];
-  };
-  
-  NSString        *urlString = [NSString stringWithFormat:[handler buildURLString], input];
-  NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
-  NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
-  [task resume];
-}
 
 /**
  * Decide what to do with received data from API calls, e.g. if data received is 
@@ -90,17 +66,17 @@
  */
 - (void)delegateData:(NSData *)data withHandler:(SARAPIHandler *)handler {
   NSString *parsedString = [handler parseJSONData:data];
-  NSString *purgedString = [self purgeString:parsedString];
+  //NSString *purgedString = [self purgeString:parsedString];
   
   if ([handler isKindOfClass:[SARPlacesAPIHandler class]]) {
     self.locationName = parsedString;
-    [self makeAPICallWithHandler:[self.apiHandlers valueForKey:self.geocoding] input:purgedString];
+    //[self makeAPICallWithHandler:[self.apiHandlers valueForKey:self.geocoding] input:purgedString];
     
   } else if ([handler isKindOfClass:[SARGeocodingAPIHandler class]]) {
-    [self makeAPICallWithHandler:[self.apiHandlers valueForKey:self.timezones] input:purgedString];
+    //[self makeAPICallWithHandler:[self.apiHandlers valueForKey:self.timezones] input:purgedString];
     
   } else if ([handler isKindOfClass:[SARTimeZoneAPIHandler class]])  {
-    self.timeZone = [NSTimeZone timeZoneWithName:parsedString];
+    //self.timeZone = [NSTimeZone timeZoneWithName:parsedString];
   }
 }
 

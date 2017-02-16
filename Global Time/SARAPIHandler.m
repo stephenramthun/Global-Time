@@ -34,6 +34,7 @@
  * @param arguments   user input used as arguments in the API call.
  * @param object      object that should receive API response.
  * @param selector    method implemented by receiving object that handles response.
+ *                    The referenced method should have only one argument: an NSString object.
  */
 - (void)makeAPICallWithArguments:(NSString *)arguments object:(id)object selector:(SEL)selector {
   NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];

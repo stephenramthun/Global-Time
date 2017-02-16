@@ -26,17 +26,11 @@ const int kNumberOfVisibleItems = 0;
   return self;
 }
 
-- (instancetype)initWithFrame:(NSRect)frameRect {
-  if (self = [super initWithFrame:frameRect]) {
+- (void)textDidEndEditing:(NSNotification *)notification {
+  SEL selector = NSSelectorFromString(@"userEnteredString:");
+  if ([self.delegate respondsToSelector:selector]) {
+    [self.delegate performSelector:selector withObject:self.stringValue];
   }
-    
-  return self;
-}
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    
-    // Drawing code here.
 }
 
 @end

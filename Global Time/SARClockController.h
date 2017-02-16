@@ -24,6 +24,6 @@
 @property (nonatomic, readonly) NSString *locationName;
 @property (nonatomic, readonly) SARTimeData *timeData;
 
-- (void)makeAPICallWithInput:(NSString *)input;
+- (void)sendRequestWithArguments:(NSString *)arguments;
 
 @end

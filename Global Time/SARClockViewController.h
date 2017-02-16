@@ -10,4 +10,6 @@
 
 @interface SARClockViewController : NSViewController <NSControlTextEditingDelegate>
 
+- (void)userEnteredString:(NSString *)string;
+
 @end

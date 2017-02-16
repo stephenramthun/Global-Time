@@ -37,19 +37,15 @@
  * @param response  response received from web service
  */
 - (void)didReceiveResponse:(NSString *)response {
-  NSLog(@"%@", self.inputField.cell);
-  NSLog(@"Received response: %@", response);
   [self.inputField setStringValue:response];
   [self.view.window makeFirstResponder:nil];
   
-  // SEND MESSAGE TO STATUS BAR CLOCK
+  NSLog(@"City:      %@", response);
+  [self.statusBarClock sendRequestWithArguments:response];
 }
 
-#pragma mark - Control Text Delegate
-
-- (void)controlTextDidEndEditing:(NSNotification *)notification {
-  SARInputField *inputField = notification.object;
-  [self.placesAPIHandler makeAPICallWithArguments:inputField.stringValue object:self selector:@selector(didReceiveResponse:)];
+- (void)userEnteredString:(NSString *)string {
+  [self.placesAPIHandler makeAPICallWithArguments:string object:self selector:@selector(didReceiveResponse:)];
 }
 
 #pragma mark - Mouse Events

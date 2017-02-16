@@ -7,21 +7,27 @@
 //
 
 #import "SARClockController.h"
+#import "SARGeocodingAPIHandler.h"
+#import "SARTimeZoneAPIHandler.h"
 #import "SARStatusBarMenu.h"
+#import "SARAPIKeyManager.h"
+#import "SARAPIHandler.h"
 #import "SARTimeData.h"
 
 @interface SARClockController()
 
 @property (nonatomic) NSTimer *timer;
-@property (nonatomic) NSInteger offset;
 @property (nonatomic) NSStatusItem *clockItem;
-@property (nonatomic, readwrite) SARTimeData *timeData;
 
 // Properties used for updating clock display
-@property (nonatomic) NSDate *currentDate;
-@property (nonatomic) NSString *dateString;
 @property (nonatomic) NSString *statusString;
 @property (nonatomic) NSString *locationName;
+@property (nonatomic) NSInteger offsetInSeconds;
+@property (nonatomic) NSTimeZone *remoteTimeZone;
+
+// Objects responsible for building API-requests and parsing responses from web services.
+@property (nonatomic) SARGeocodingAPIHandler *geocodingHandler;
+@property (nonatomic) SARTimeZoneAPIHandler *timeZoneHandler;
 
 @end
 
@@ -30,55 +36,48 @@
 - (instancetype)init {
   if (self = [super init]) {
     [self setupClockItem];
-    _timeData = [[SARTimeData alloc] init];
+    SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
+    _geocodingHandler = [[SARGeocodingAPIHandler alloc] initWithKey:[keyManager keyForAPIType:SARAPITypeGeocoding]];
+    _timeZoneHandler  = [[SARTimeZoneAPIHandler alloc]  initWithKey:[keyManager keyForAPIType:SARAPITypeTimeZones]];
   }
   return self;
 }
 
 #pragma mark - Public Methods
 
-- (void)makeAPICallWithInput:(NSString *)input {
-  [self.timeData addObserver:self forKeyPath:@"timeZone" options:NSKeyValueObservingOptionNew context:nil];
-  [self.timeData makeAPICallWithInput:input];
+- (void)sendRequestWithArguments:(NSString *)arguments {
+  [self.geocodingHandler makeAPICallWithArguments:arguments object:self selector:@selector(didReceiveGeocodingResponse:)];
 }
 
 #pragma mark - Private Methods
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  NSDateFormatter *dateFormatter = [self dateFormatter];
-  NSTimeZone *remoteTimeZone     = self.timeData.timeZone;
-  NSTimeZone *localTimeZone      = [NSTimeZone localTimeZone];
-  
-  self.offset       = [remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT];
-  self.currentDate  = [[NSDate date] dateByAddingTimeInterval:ABS(self.offset)];
-  self.locationName = self.timeData.locationName;
-  
-  // Schedule timer for repeat every second, and update title
-  // of self.clockItem to correctly represent the current time.
-  
-  /*
-  dispatch_async(dispatch_get_main_queue(), ^{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                  target:self
-                                                selector:@selector(updateTime:)
-                                                userInfo:dateFormatter
-                                                 repeats:YES];
-  });
-  */
-  [self.timeData removeObserver:self forKeyPath:@"timeZone"];
+- (void)didReceiveGeocodingResponse:(NSString *)response {
+  NSLog(@"Position:  %@", response);
+  [self.timeZoneHandler makeAPICallWithArguments:response object:self selector:@selector(didReceiveTimeZonesResponse:)];
 }
 
-/**
- * Updates time each time self.timer is called.
- *
- * @param timer   the timer which is currently firing.
- */
-- (void)updateTime:(NSTimer *)timer {
-  NSDateFormatter *dateFormatter = timer.userInfo;
-  self.currentDate  = [self.currentDate dateByAddingTimeInterval:1.0];
-  self.dateString   = [dateFormatter stringFromDate:self.currentDate];
-  self.statusString = [NSString stringWithFormat:@"%@: %@", self.timeData.locationName, self.dateString];
-  [self.clockItem setTitle:self.statusString];
+- (void)didReceiveTimeZonesResponse:(NSString *)response {
+  NSLog(@"Time Zone: %@", response);
+  self.locationName = response;
+  
+  // Calculate time difference between the local and remote time zones,
+  // and
+  self.remoteTimeZone       = [NSTimeZone timeZoneWithName:response];
+  NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+  self.offsetInSeconds      = [self.remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT] + 1;
+  self.timer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+    
+    // Update clock each second
+    NSDate *date         = [[NSDate date] dateByAddingTimeInterval:1.0 - self.offsetInSeconds];
+    NSString *dateString = [self.dateFormatter stringFromDate:date];
+    self.statusString    = [NSString stringWithFormat:@"%@: %@", self.locationName, dateString];
+    [self.clockItem setTitle:self.statusString];
+    date       = nil;
+    dateString = nil;
+  }];
+  
+  NSRunLoop *mainRunLoop = [NSRunLoop mainRunLoop];
+  [mainRunLoop addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
 /**

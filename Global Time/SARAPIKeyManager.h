@@ -20,5 +20,6 @@ typedef enum : NSInteger {
 
 + (SARAPIKeyManager *)sharedAPIKeyManager;
 - (NSString *)keyForAPIType:(SARAPIType)type;
+- (NSString *)nameForAPIType:(SARAPIType)type;
 
 @end

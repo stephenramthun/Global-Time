@@ -25,14 +25,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  SARAPIKeyManager *keyManager = [SARAPIKeyManager sharedAPIKeyManager];
-  
-  //_clockController = [[SARClockController alloc] init];
-  
-    //self.clockList = [[SARClockList alloc] initWithFrame:self.window.contentView.frame];
-    
-    //[self.window.contentView addSubview:self.clockList];
-    //[self addClock];
 }
 
 @end

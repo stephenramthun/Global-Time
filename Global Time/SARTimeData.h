@@ -18,6 +18,6 @@
 @property (nonatomic, readonly) NSTimeZone *timeZone;
 @property (nonatomic, readonly) NSString *locationName;
 
-- (void)makeAPICallWithInput:(NSString *)input;
+- (void)setupClockWithInput:(NSString *)input;
 
 @end

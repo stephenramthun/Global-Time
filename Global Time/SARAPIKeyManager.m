@@ -49,4 +49,21 @@ NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-ti
   }
 }
 
+/**
+ * Returns API name for supplied API type.
+ *
+ * @param type   type of API to return name for
+ * @return       name for API matching type
+ */
+- (NSString *)nameForAPIType:(SARAPIType)type {
+  switch (type) {
+    case SARAPITypePlace:
+      return @"place";
+    case SARAPITypeGeocoding:
+      return @"geocode";
+    case SARAPITypeTimeZones:
+      return @"timezones";
+  }
+}
+
 @end
