@@ -39,11 +39,14 @@
 - (void)didReceiveResponse:(NSString *)response {
   [self.inputField setStringValue:response];
   [self.view.window makeFirstResponder:nil];
-  
-  NSLog(@"City:      %@", response);
   [self.statusBarClock sendRequestWithArguments:response];
 }
 
+/**
+ * Method that gets called each time a user has enteres a string to _inputField and pressed enter.
+ *
+ * @param string  stringValue of _inputField at time of call
+ */
 - (void)userEnteredString:(NSString *)string {
   [self.placesAPIHandler makeAPICallWithArguments:string object:self selector:@selector(didReceiveResponse:)];
 }

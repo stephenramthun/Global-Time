@@ -51,23 +51,30 @@
 
 #pragma mark - Private Methods
 
+/**
+ * Method that gets called each time SARGeocodingAPIHandler gets a response from the Geocoding API.
+ *
+ * @param response  latitude and longitude received by SARGeocodingAPIHandler from the Geocoding API
+ */
 - (void)didReceiveGeocodingResponse:(NSString *)response {
-  NSLog(@"Position:  %@", response);
   [self.timeZoneHandler makeAPICallWithArguments:response object:self selector:@selector(didReceiveTimeZonesResponse:)];
 }
 
+/**
+ * Method that gets called each time SARTimeZoneAPIHandler gets a response from the Time Zone API.
+ *
+ * @param response  name/code of time zone received by SARTimeZoneAPIHandler from the Time Zone API
+ */
 - (void)didReceiveTimeZonesResponse:(NSString *)response {
-  NSLog(@"Time Zone: %@", response);
   self.locationName = response;
   
-  // Calculate time difference between the local and remote time zones,
-  // and
+  // Calculate time difference between the local and remote time zones.
   self.remoteTimeZone       = [NSTimeZone timeZoneWithName:response];
   NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
   self.offsetInSeconds      = [self.remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT] + 1;
+  
+  // Update clock each second.
   self.timer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-    
-    // Update clock each second
     NSDate *date         = [[NSDate date] dateByAddingTimeInterval:1.0 - self.offsetInSeconds];
     NSString *dateString = [self.dateFormatter stringFromDate:date];
     self.statusString    = [NSString stringWithFormat:@"%@: %@", self.locationName, dateString];
