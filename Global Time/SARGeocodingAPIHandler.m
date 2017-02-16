@@ -32,17 +32,11 @@
  * @param data  JSON data obtained from an API request to Google's Geocoding API.
  */
 - (NSString *)parseJSONData:(NSData *)data {
-  
-  NSLog(@"\n\nTrying to parse NSData: %@\n\n", data);
-  
   NSString *first  = @"results";  // First dictionary in JSON
   NSString *second = @"geometry"; // Second dictionary in JSON
   NSString *third  = @"location"; // Third dictionary in JSON
   
   NSDictionary *objects  = [self dictionaryFromJSONData:data];
-  
-  NSLog(@"\n\nResult of parsing data: %@\n\n", objects);
-  
   NSDictionary *location = [[[objects valueForKey:first] valueForKey:second] valueForKey:third];
   NSString *coordinates  = [NSString stringWithFormat:@"%@,%@",
                             [[location valueForKey:@"lat"] firstObject],

@@ -10,8 +10,6 @@
 
 @implementation SARTimeZoneAPIHandler
 
-// https://maps.googleapis.com/maps/api/timezone/json?location=59.9138688,10.7522454&timestamp=1331161200&key=AIzaSyAYbym6feYlr7vakttlcqyFeVgKBy585XU
-
 /**
  * Builds a URL string based on an api-key, a base string and arguments.
  *
@@ -36,13 +34,7 @@
  * @param data  JSON data obtained from an API request to Google's Time Zones API.
  */
 - (NSString *)parseJSONData:(NSData *)data {
-  
-  NSLog(@"\n\nTrying to parse NSData: %@\n\n", data);
-  
   NSDictionary *objects  = [self dictionaryFromJSONData:data];
-  
-  NSLog(@"\n\nResult of parsing data: %@\n\n", objects);
-  
   NSString *timeZoneName = [objects valueForKey:@"timeZoneId"];
   return timeZoneName;
 }

@@ -37,20 +37,42 @@
     NSLog(@"Error: Data was null.");
     return nil;
   }
-  
-  NSLog(@"\n\nTrying to parse NSData: %@\n\n", data);
-  
   NSString *first     = @"predictions"; // First dictionary in JSON
   NSString *second    = @"description"; // Second dictionary in JSON
   NSString *separator = @", ";
   
+  
   NSDictionary *objects = [self dictionaryFromJSONData:data];
-  
-  NSLog(@"\n\nResult of parsing data: %@\n\n", objects);
-  
-  self.cityAndCountry   = [[[objects valueForKey:first] valueForKey:second] firstObject];
+  self.cityAndCountry   = [self findCorrectCityInDictionary:[[objects valueForKey:first] valueForKey:second]];
   NSArray *components   = [self.cityAndCountry componentsSeparatedByString:separator];
   return [components firstObject];
+}
+
+/**
+ * Sometimes the Google Places Autocomplete will return JSON data that is sorted wrong.
+ * E.g., when a user types the name of the Norwegian city "Bergen", the first entry in the JSON
+ * will be "Bergenfield", NY. This behaviour is troubling, as someone who wants to know the time
+ * in Bergen won't be able to directly do this in this program.
+ *
+ * This method will try to find the best match between entries in the dictionary and the user string,
+ * by checking if the best match according to Google is longer than the argument, and then checking
+ * each entry in the dictionary returning an entry if it's length matches the length of the argument.
+ *
+ * @param dictionary    dictionary to search through
+ */
+- (NSString *)findCorrectCityInDictionary:(NSDictionary *)dictionary {
+  NSString *bestMatch = [(NSArray *)dictionary firstObject];
+  
+  for (id entry in dictionary) {
+    NSArray *components = [entry componentsSeparatedByString:@", "];
+    NSString *cityName  = [components firstObject];
+    
+    if ([cityName caseInsensitiveCompare:self.argument] == NSOrderedSame) {
+      bestMatch = cityName;
+      break;
+    }
+  }
+  return bestMatch;
 }
 
 @end

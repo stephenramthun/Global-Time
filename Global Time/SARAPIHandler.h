@@ -11,11 +11,12 @@
 @interface SARAPIHandler : NSObject
 
 @property (nonatomic) NSString *key;
+@property (nonatomic) NSString *argument;
 
 - (instancetype)initWithKey:(NSString *)key;
 - (NSString *)buildURLString;
 - (NSString *)parseJSONData:(NSData *)data;
-- (NSDictionary *)dictionaryFromJSONData:(NSData *)data;
+- (id)dictionaryFromJSONData:(NSData *)data;
 - (void)makeAPICallWithArguments:(NSString *)arguments object:(id)object selector:(SEL)selector;
 
 @end

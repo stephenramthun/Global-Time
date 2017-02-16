@@ -10,7 +10,7 @@
 
 @interface SARAPIHandler()
 
-@property (nonatomic) NSDictionary *response;
+@property (nonatomic) id response;
 
 @end
 
@@ -37,6 +37,7 @@
  *                    The referenced method should have only one argument: an NSString object.
  */
 - (void)makeAPICallWithArguments:(NSString *)arguments object:(id)object selector:(SEL)selector {
+  self.argument = arguments;
   NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
   
   void (^completionHandler)(NSData *, NSURLResponse *, NSError *) = ^(NSData *data, NSURLResponse *response, NSError *error){
@@ -49,9 +50,6 @@
   NSString *escapedString    = [arguments stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
   NSString        *urlString = [self purgeString:[NSString stringWithFormat:[self buildURLString], escapedString]];
   NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
-  NSURL *url = [NSURL URLWithString:urlString];
-  NSLog(@"Trying to contact API with URL: %@", url.absoluteString);
-  
   NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
   [task resume];
 }
@@ -84,7 +82,7 @@
  * @param data  JSON data to convert to a dictionary
  * @return      NSDictionary with JSON data
  */
-- (NSDictionary *)dictionaryFromJSONData:(NSData *)data {
+- (id)dictionaryFromJSONData:(NSData *)data {
   NSError *error;
   id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
   
