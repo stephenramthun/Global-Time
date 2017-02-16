@@ -71,11 +71,11 @@
   // Calculate time difference between the local and remote time zones.
   self.remoteTimeZone       = [NSTimeZone timeZoneWithName:response];
   NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
-  self.offsetInSeconds      = [self.remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT] + 1;
+  self.offsetInSeconds      = [self.remoteTimeZone secondsFromGMT] - [localTimeZone secondsFromGMT];
   
   // Update clock each second.
   self.timer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-    NSDate *date      = [[NSDate date] dateByAddingTimeInterval:1.0 - self.offsetInSeconds];
+    NSDate *date      = [[NSDate date] dateByAddingTimeInterval:1.0 + self.offsetInSeconds];
     self.dateString   = [self.dateFormatter stringFromDate:date];
     self.statusString = [NSString stringWithFormat:@"%@: %@", self.locationName, self.dateString];
     [self.clockItem setTitle:self.statusString];
