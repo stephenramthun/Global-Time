@@ -10,7 +10,7 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, weak) IBOutlet NSWindow *window;
+@property (nonatomic) IBOutlet NSWindow *window;
 
 @end
 
@@ -19,6 +19,14 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   self.window.titleVisibility = NSWindowTitleHidden;
   self.window.titlebarAppearsTransparent = YES;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+  [self.window orderFront:self.window];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+  self.window = nil;
 }
 
 @end

@@ -79,7 +79,7 @@
   
   // Update clock each second.
   self.timer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-    NSDate *date      = [[NSDate date] dateByAddingTimeInterval:1.0 + self.offsetInSeconds];
+    NSDate *date      = [[NSDate date] dateByAddingTimeInterval:self.offsetInSeconds];
     self.dateString   = [self.dateFormatter stringFromDate:date];
     self.statusString = [NSString stringWithFormat:@"%@: %@", self.placeName, self.dateString];
     [self.clockItem setTitle:self.statusString];
