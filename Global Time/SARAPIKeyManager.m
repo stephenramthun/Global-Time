@@ -9,7 +9,7 @@
 #import "SARAPIKeyManager.h"
 
 // Change this to reflect location of .plist-file with keys
-NSString * const kAPIKeyFilePath = @"<PATH_TO_YOUR_KEYS";
+NSString * const kAPIKeyFilePath = @"<PATH_TO_YOUR_KEYS>";
 
 @interface SARAPIKeyManager ()
 
