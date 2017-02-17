@@ -31,6 +31,7 @@
   self.statusBarClock   = [[SARClockController alloc] init];
   
   [self.statusBarClock addObserver:self forKeyPath:@"dateString" options:NSKeyValueObservingOptionNew context:nil];
+  [self.timeTextField setAlphaValue:0.3];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -47,6 +48,8 @@
     return;
   }
   [self.inputField setStringValue:response];
+  [self.timeTextField setAlphaValue:1.0];
+  //self.timeTextField.textColor = [NSColor colorWithRed:1.00 green:0.91 blue:0.49 alpha:1.0];
   [self.view.window makeFirstResponder:nil];
   [self.statusBarClock sendRequestWithArguments:response];
 }
