@@ -17,7 +17,9 @@
   return self;
 }
 
-// Create and add a menuitem to menu
+/**
+ * Create and add an NSMenuItem to the menu.
+ */
 - (void)addMenuItemWithTitle:(NSString *)title action:(SEL)selector {
   NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:selector keyEquivalent:@""];
   menuItem.enabled = YES;
@@ -26,7 +28,9 @@
   [self addItem:menuItem];
 }
 
-// Quit application
+/**
+ * Quit the application.
+ */
 - (IBAction)exit:(id)sender {
   [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }

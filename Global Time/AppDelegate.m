@@ -7,17 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "SARClockList.h"
-#import "SARClockViewController.h"
-#import "SARClockController.h"
-#import "SARAPIKeyManager.h"
 
 @interface AppDelegate ()
 
 @property (nonatomic, weak) IBOutlet NSWindow *window;
-@property (nonatomic) NSMutableArray *clocks;
-@property (nonatomic) SARClockList *clockList;
-@property (nonatomic) SARClockController *clockController;
 
 @end
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		410C4E9E1E46F93A005A03F0 /* SARClockList.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C4E9D1E46F93A005A03F0 /* SARClockList.m */; };
 		410C4EA51E4707F0005A03F0 /* SARClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C4EA31E4707F0005A03F0 /* SARClockViewController.m */; };
 		410C50B51E51922D005A03F0 /* global-time.plist in Resources */ = {isa = PBXBuildFile; fileRef = 410C50B41E51922D005A03F0 /* global-time.plist */; };
 		410C50B81E519464005A03F0 /* SARStatusBarMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C50B71E519464005A03F0 /* SARStatusBarMenu.m */; };
@@ -26,8 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		410C4E9C1E46F93A005A03F0 /* SARClockList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARClockList.h; sourceTree = "<group>"; };
-		410C4E9D1E46F93A005A03F0 /* SARClockList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARClockList.m; sourceTree = "<group>"; };
 		410C4E9F1E4700FA005A03F0 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		410C4EA21E4707F0005A03F0 /* SARClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARClockViewController.h; sourceTree = "<group>"; };
 		410C4EA31E4707F0005A03F0 /* SARClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARClockViewController.m; sourceTree = "<group>"; };
@@ -138,8 +135,6 @@
 				4166F8251E53BFDB00B51FC1 /* SARClockView.m */,
 				41DD37781E46581D00BC7B52 /* SARInputField.h */,
 				41DD37791E46581D00BC7B52 /* SARInputField.m */,
-				410C4E9C1E46F93A005A03F0 /* SARClockList.h */,
-				410C4E9D1E46F93A005A03F0 /* SARClockList.m */,
 			);
 			name = Window;
 			sourceTree = "<group>";
@@ -239,7 +234,6 @@
 				41DD371B1E451ADB00BC7B52 /* main.m in Sources */,
 				41DD37181E451ADB00BC7B52 /* AppDelegate.m in Sources */,
 				41DD37751E458EBE00BC7B52 /* SARClockController.m in Sources */,
-				410C4E9E1E46F93A005A03F0 /* SARClockList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

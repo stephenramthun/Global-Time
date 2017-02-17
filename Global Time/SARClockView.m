@@ -17,7 +17,6 @@
   NSBezierPath *path = [NSBezierPath bezierPathWithRect:self.frame];
   [fillColor setFill];
   [path fill];
-  
 }
 
 @end

@@ -13,7 +13,9 @@ NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-ti
 
 @implementation SARAPIKeyManager
 
-// Singleton initializer.
+/**
+ * Singleton initializer.
+ */
 + (SARAPIKeyManager *)sharedAPIKeyManager {
   static SARAPIKeyManager *sharedAPIKeyManager = nil;
   static dispatch_once_t oncePredicate;

@@ -52,6 +52,7 @@
   NSURLSession      *session = [NSURLSession sessionWithConfiguration:configuration];
   NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:completionHandler];
   [task resume];
+  [session finishTasksAndInvalidate];
 }
 
 /**

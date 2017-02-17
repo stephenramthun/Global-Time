@@ -8,9 +8,10 @@
 
 #import "SARInputField.h"
 
-const CGFloat kRectHeight    = 5.0;
-const CGFloat kBarMultiplier = 2.2;
-const CGFloat kBarRadius     = 3.0;
+const CGFloat kRectHeight          = 5.0;
+const CGFloat kBarMultiplier       = 2.2;
+const CGFloat kBarRadius           = 3.0;
+const CGFloat kFontOpacityInactive = 0.3;
 
 @interface SARInputField ()
 
@@ -23,16 +24,35 @@ const CGFloat kBarRadius     = 3.0;
 - (instancetype)initWithCoder:(NSCoder *)coder {
   if (self = [super initWithCoder:coder]) {
     _fillColor = [NSColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [self setPlaceholderAttributedString:[self attributedStringWithFontSize:26.0 string:@"city"]];
   }
   return self;
 }
+
+/**
+ * Creates and returns a NSAttributedString.
+ *
+ * @param fontSize    size of font
+ * @return            an allocated and initialized attributed string object
+ */
+- (NSAttributedString *)attributedStringWithFontSize:(CGFloat)fontSize string:(NSString *)string {
+  NSFont *placeHolderFont               = [NSFont systemFontOfSize:fontSize];
+  NSColor *placeHolderFontColor         = [NSColor colorWithRed:1.00 green:0.91 blue:0.49 alpha:kFontOpacityInactive];
+  NSDictionary *placeHolderAttributes   = @{NSForegroundColorAttributeName:placeHolderFontColor,
+                                            NSFontAttributeName:placeHolderFont};
+  NSAttributedString *placeHolderString = [[NSAttributedString alloc] initWithString:string
+                                                                          attributes:placeHolderAttributes];
+  return placeHolderString;
+}
+
+#pragma mark - Text Field Delegate
 
 - (void)textDidChange:(NSNotification *)notification {
   [self setNeedsDisplay];
 }
 
 - (void)textDidBeginEditing:(NSNotification *)notification {
-  self.fillColor = [NSColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3];
+  self.fillColor = [NSColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:kFontOpacityInactive];
   [self setNeedsDisplay];
 }
 
@@ -48,6 +68,8 @@ const CGFloat kBarRadius     = 3.0;
     [self.delegate performSelector:selector withObject:self.stringValue];
   }
 }
+
+#pragma mark - Drawing
 
 - (void)drawRect:(NSRect)dirtyRect {
   [super drawRect:dirtyRect];

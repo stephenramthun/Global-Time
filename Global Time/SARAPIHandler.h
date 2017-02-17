@@ -5,6 +5,8 @@
 //  Created by Stephen Ramthun on 03/02/2017.
 //  Copyright © 2017 Stephen Ramthun. All rights reserved.
 //
+//  A SARAPIHandler is a blueprint for how to connect to a specific
+//  web service API.
 
 #import <Foundation/Foundation.h>
 

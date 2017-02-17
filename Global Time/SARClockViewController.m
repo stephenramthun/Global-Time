@@ -47,6 +47,7 @@
   if (response.length < 1) {
     return;
   }
+  self.statusBarClock.placeName = response;
   [self.inputField setStringValue:response];
   [self.timeTextField setAlphaValue:1.0];
   //self.timeTextField.textColor = [NSColor colorWithRed:1.00 green:0.91 blue:0.49 alpha:1.0];
