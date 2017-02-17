@@ -1,3 +1,3 @@
 # Global-Time
 
-https://github.com/stephenramthun/Global-Time/global-time.gif
+![](https://github.com/stephenramthun/Global-Time/global-time.gif)
