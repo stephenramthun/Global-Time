@@ -11,6 +11,14 @@
 // Change this to reflect location of .plist-file with keys
 NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-time.plist";
 
+@interface SARAPIKeyManager ()
+
+@property (nonatomic) NSString *placesDictionaryKey;
+@property (nonatomic) NSString *geocodingDictionaryKey;
+@property (nonatomic) NSString *timeZonesDictionaryKey;
+
+@end
+
 @implementation SARAPIKeyManager
 
 /**
@@ -30,6 +38,9 @@ NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-ti
 - (instancetype)init {
   if (self = [super init]) {
     _keys = [NSDictionary dictionaryWithContentsOfFile:kAPIKeyFilePath];
+    _placesDictionaryKey    = @"place";
+    _geocodingDictionaryKey = @"geocode";
+    _timeZonesDictionaryKey = @"timezones";
   }
   return self;
 }
@@ -43,11 +54,11 @@ NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-ti
 - (NSString *)keyForAPIType:(SARAPIType)type {
   switch (type) {
     case SARAPITypePlace:
-      return [self.keys valueForKey:@"place"];
+      return [self.keys valueForKey:self.placesDictionaryKey];
     case SARAPITypeGeocoding:
-      return [self.keys valueForKey:@"geocode"];
+      return [self.keys valueForKey:self.geocodingDictionaryKey];
     case SARAPITypeTimeZones:
-      return [self.keys valueForKey:@"timezones"];
+      return [self.keys valueForKey:self.timeZonesDictionaryKey];
   }
 }
 
@@ -60,11 +71,11 @@ NSString * const kAPIKeyFilePath = @"/Users/stephenramthun/keys/google/global-ti
 - (NSString *)nameForAPIType:(SARAPIType)type {
   switch (type) {
     case SARAPITypePlace:
-      return @"place";
+      return self.placesDictionaryKey;
     case SARAPITypeGeocoding:
-      return @"geocode";
+      return self.geocodingDictionaryKey;
     case SARAPITypeTimeZones:
-      return @"timezones";
+      return self.timeZonesDictionaryKey;
   }
 }
 
