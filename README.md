@@ -10,3 +10,5 @@ If you want to compile and use this for yourself, you have to get developer keys
 - [Google Places API](https://developers.google.com/places/web-service/)
 - [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)
 - [Google Maps Time Zone API](https://developers.google.com/maps/documentation/timezone/intro)
+
+Put these keys in a plist-file somewhere outside the project folder and modify SARAPIKeyManager.m to point to your key-plist file path.
